@@ -1,12 +1,14 @@
 export const registerUserService = (request) => {
-  const REGISTER_API_ENDPOINT = 'http://localhost:3000/api/v1/register';
-  
+  const REGISTER_API_ENDPOINT = 'http://127.0.0.1:8000/backend/sign_up/';
+
+  console.log(request);
+
   const parameters = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(request.user)
+    body: JSON.stringify(request)
   };
 
   return fetch(REGISTER_API_ENDPOINT, parameters)
@@ -19,7 +21,7 @@ export const registerUserService = (request) => {
 };
 
 export const loginUserService = (request) => {
-  const LOGIN_API_ENDPOINT = 'http://localhost:3000/api/v1/login';
+  const LOGIN_API_ENDPOINT = 'http://127.0.0.1:8000/backend/sign_in/';
 
   const parameters = {
     method: 'POST',
