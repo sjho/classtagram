@@ -4,8 +4,8 @@ from classtagram import views
 from django.conf.urls import url
 
 urlpatterns = [
-    path('sign_up/', views.SignUp.as_view()),
-    path('sign_in/', views.SignIn),
+    path('register/', views.Register.as_view()),
+    path('login/', views.Login),
 ]
 
 urlpatterns=format_suffix_patterns(urlpatterns)

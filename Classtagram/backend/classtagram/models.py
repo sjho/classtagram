@@ -48,6 +48,9 @@ class User(AbstractBaseUser):
 	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = []
 
+	def check_password(self, raw_password):
+		return self.password == raw_password
+
 	def __str__(self):
 		return self.username
 

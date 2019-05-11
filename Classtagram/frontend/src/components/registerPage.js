@@ -33,7 +33,6 @@ export class RegisterPage extends Component {
     
     // 회원가입 버튼을 눌렀을 때 실행되는 이벤트
     const onHandleRegistration = () => {
-      console.log(this.state.username, this.state.password);
       // 비밀번호와 비밀번호 확인이 일치하면 회원 정보를 POST 한다.
       // registerUserAction을 dispatch하면
       // 이를 watchers.js의 watchRegisterAuthentication() watcher가 감지합니다.
@@ -128,7 +127,7 @@ export class RegisterPage extends Component {
           </div>
           <div style={{ textAlign: "center" }}>
             <Button variant="contained" type="button" onClick={onHandleRegistration}>
-              Login
+              Sign up
             </Button>
           </div>
         </form>
