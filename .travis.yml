@@ -11,5 +11,4 @@ install:
 - pip install django-allauth
 script:
 - cd Classtagram/backend
-- coverage run --source='.' manage.py test
-- coverage report 
+- python manage.py test
