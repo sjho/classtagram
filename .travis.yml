@@ -2,13 +2,13 @@ language: python
 python:
 - "3.6.3"
 install:
-- pip install django
-- pip install djangorestframework
-- pip install coverage
-- pip install requests
-- pip install django-cors-headers
-- pip install django-rest-auth
-- pip install django-allauth
+- pip3 install django
+- pip3 install djangorestframework
+- pip3 install coverage
+- pip3 install requests
+- pip3 install django-cors-headers
+- pip3 install django-rest-auth
+- pip3 install django-allauth
 script:
 - cd Classtagram/backend
-- python manage.py test
+- python3 manage.py test
