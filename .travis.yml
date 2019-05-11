@@ -1,9 +1,4 @@
 language: python
-python:
-	- "3.6"
-branches:
-	- master
-	- develop
 before_script:
 	- cd Classtagram/backend
 install:
