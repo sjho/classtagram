@@ -1,6 +1,4 @@
 language: python
-before_script:
-	- cd Classtagram/backend
 install:
 	- pip install django
 	- pip install djangorestframework
@@ -10,5 +8,6 @@ install:
 	- pip install django-rest-auth
 	- pip install django-allauth
 script:
+	- cd Classtagram/backend
 	- coverage run --source='.' manage.py test
 	- coverage report
