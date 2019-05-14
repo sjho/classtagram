@@ -1,8 +1,6 @@
 export const registerUserService = (request) => {
   const REGISTER_API_ENDPOINT = 'http://127.0.0.1:8000/backend/register/';
 
-  console.log(request);
-
   const parameters = {
     method: 'POST',
     headers: {

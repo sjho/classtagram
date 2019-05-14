@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 from classtagram.models import User
 from classtagram.serializers import UserSerializer, RegisterSerializer 
 from django.views.decorators.csrf import csrf_exempt
@@ -14,8 +15,22 @@ class Register(APIView):
 	queryset = User.objects.all()
 	serializer_class = RegisterSerializer
 
-	def perform_create(self, serializer):
-		serializer.save()
+	def get(self, request, format=None):
+		users = User.objects.all()
+		serializer = RegisterSerializer(users, many=True)
+		return Response(serializer.data)
+
+
+	def post(self, request, format=None):
+		serializer = RegisterSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return JsonResponse({'success':True, 'message':'register successed!'})
+		else:
+			return JsonResponse({'success':False, 'message':'error'})
+
+	#def perform_create(self, serializer):
+	#	serializer.save()
 
 @csrf_exempt
 def Login(request):

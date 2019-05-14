@@ -37,7 +37,6 @@ class LoginPage extends Component {
     }
 
     if (this.props.response.login.hasOwnProperty('response')) {
-      console.log(this.props.response)
       isSuccess = this.props.response.login.response.success;
       message = this.props.response.login.response.message;
       
