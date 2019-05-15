@@ -9,24 +9,32 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
+// 처음 로그인 정보 저장
+const initialState = {
+  username: "",
+  password: ""
+};
 
 class LoginPage extends Component {
-  onHandleLogin = (event) => {
-    event.preventDefault();
-
-    let stuID = event.target.stuID.value;
-    let password = event.target.password.value;
-
-    const data = {
-      stuID, password
-    };
-
-    this.props.dispatch(loginUserAction(data));
+  // 로그인 정보 초기화
+  constructor(props) {
+    super(props);
+    this.state = initialState;
   }
 
   render() {
-
     let isSuccess, message;
+
+    // 로그인 버튼을 눌렀을 때 실행되는 이벤트
+    const onHandleLogin = () => {
+      // username과 password를 보내 로그인 백엔드에 GET명령을 보낸다.
+      // loginUserAction을 dispatch하면
+      // 이를 watchers.js의 watchLoginAuthentication() watcher가 감지합니다.
+        this.props.dispatch(loginUserAction({
+          username: this.state.username,
+          password: this.state.password
+        }));
+    }
 
     if (this.props.response.login.hasOwnProperty('response')) {
       isSuccess = this.props.response.login.response.success;
@@ -45,20 +53,32 @@ class LoginPage extends Component {
         {!isSuccess ? <div>{message}</div> : <Redirect to='dashboard' />}
         <form onSubmit={this.onHandleLogin}>
           <div style={{ textAlign: "center" }}>
-            <TextField  placeholder="stuID" type="stuID" name="stuID" />
+            <TextField
+              placeholder="ID"
+              type="username"
+              name="username"
+              value={this.state.username}
+              // 해당 Textfield의 값이 바뀌면 바로 현재 클래스의 state에 반영됩니다.
+              onChange={e => this.setState({ username: e.target.value })} />
           </div>
           <div style={{ textAlign: "center" }}>
-            <TextField placeholder="password" type="password" name="password" />
+          <TextField
+              placeholder="password"
+              type="password"
+              name="password"
+              value={this.state.password}
+              // 해당 Textfield의 값이 바뀌면 바로 현재 클래스의 state에 반영됩니다.
+              onChange={e => this.setState({ password: e.target.value })} />
           </div>
           <div style={{ textAlign: "center" }}>
-            <Button variant="raised" type="button">
+            <Button variant="contained" type="button" onClick={onHandleLogin}>
               Login
             </Button>
           </div>
         </form>
         <div style={{ textAlign: "center" }}>
           Don't have account?
-          <Link  to='register'>Login here</Link>
+          <Link  to='register'>Register here</Link>
         </div>
       </div>
     );

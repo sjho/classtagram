@@ -42,11 +42,16 @@ class User(AbstractBaseUser):
 	school = models.CharField(max_length=100)
 	major = models.CharField(max_length=100)
 	is_student = models.BooleanField(default=True)
+	is_staff = models.BooleanField(default=False)
+	admin = models.BooleanField(default=False)
 	
 	objects = UserManager()
 
 	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = []
+
+	def check_password(self, raw_password):
+		return self.password == raw_password
 
 	def __str__(self):
 		return self.username
