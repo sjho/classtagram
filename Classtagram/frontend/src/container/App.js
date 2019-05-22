@@ -8,7 +8,7 @@ import {
 import PrivateRoute from './privateRoute';
 import LoginPage from '../components/loginPage';
 import RegisterPage from '../components/registerPage';
-import DashboardPage from '../components/dashboardPage';
+import MainPage from '../components/mainPage';
 
 class App extends Component {
   render() {
@@ -19,7 +19,7 @@ class App extends Component {
             <Route path='/' exact={true} component={LoginPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
-            <PrivateRoute path='/dashboard' component={DashboardPage} />
+            <PrivateRoute path='/main' component={MainPage} />
           </Switch>
         </div>
       </BrowserRouter>

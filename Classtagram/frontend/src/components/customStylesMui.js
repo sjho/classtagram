@@ -1,4 +1,3 @@
-
 export const styles = theme => ({
   container: {
     display: "flex",
@@ -10,6 +9,7 @@ export const styles = theme => ({
   textField: {
     marginLeft: "auto",
     marginRight: "auto",
+    marginTop: "30px",
     marginBottom: "40px",
     width: "60%"
   },
