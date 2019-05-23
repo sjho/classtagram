@@ -32,7 +32,7 @@ class MainPage extends Component {
   }
   render() {
     let isSuccess, message;
-
+    const user = JSON.parse(localStorage.getItem('user'))
     const onHandleLogout = () => {
       // 비밀번호와 비밀번호 확인이 일치하면 회원 정보를 POST 한다.
       // registerUserAction을 dispatch하면
@@ -41,10 +41,10 @@ class MainPage extends Component {
       this.props.dispatch(logoutUserAction(this.state));
     }
 
-    if (this.props.response.main.hasOwnProperty('response')) {
-      isSuccess = this.props.response.main.response.success;
-      message = this.props.response.main.response.message;
-    }
+    // if (this.props.response.main.hasOwnProperty('response')) {
+    //   isSuccess = this.props.response.main.response.success;
+    //   message = this.props.response.main.response.message;
+    // }
 
     return (
       <div>
@@ -52,15 +52,15 @@ class MainPage extends Component {
           Classtagram
         </div>
         <h3 style={{ textAlign: "center" }}>
-         {localStorage.getItem('user').username}'s main page.
+         {user.username}'s mainpage
         </h3>
         <ul>
-         <div>username: {this.state.username}</div>
-         <div>is_student: {this.state.is_student}</div>
-         <div>name: {this.state.name}</div>
-         <div>student_number: {this.state.student_number}</div>
-         <div>school: {this.state.school}</div>
-         <div>major: {this.state.major}</div>
+         <div>username: {user.username}</div>
+         <div>is_student: {user.is_student}</div>
+         <div>name: {user.name}</div>
+         <div>student_number: {user.student_number}</div>
+         <div>school: {user.school}</div>
+         <div>major: {user.major}</div>
         </ul>
         <div style={{ textAlign: "center" }}>
          <Button variant="contained" type="button" onClick={onHandleLogout}>
