@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -8,6 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import { styles } from './customStylesMui.js';
+import { Timeline, Event } from "react-timeline-scribble";
 import './Styles.css';
 
 export const initialState = {
@@ -48,25 +49,35 @@ class MainPage extends Component {
 
     return (
       <div>
-       <div className="header">
+        <div className="header_main">
           Classtagram
         </div>
-        <h3 style={{ textAlign: "center" }}>
-         {user.username}'s mainpage
-        </h3>
-        <ul>
-         <div>username: {user.username}</div>
-         <div>is_student: {user.is_student}</div>
-         <div>name: {user.name}</div>
-         <div>student_number: {user.student_number}</div>
-         <div>school: {user.school}</div>
-         <div>major: {user.major}</div>
-        </ul>
-        <div style={{ textAlign: "center" }}>
-         <Button variant="contained" type="button" onClick={onHandleLogout}>
+        <Button variant="contained" type="button" onClick={onHandleLogout}>
            Logout
-         </Button>
-        </div>
+        </Button>
+      <Fragment>
+        <h2>
+          {user.username}'s mainpage
+        </h2>
+        <Timeline>
+          <Event interval={"03.02"} title={"SWPP"}>
+            username: {user.username}
+          </Event>
+          <Event interval={"03.07"} title={"SWPP"}>
+            name: {user.name}
+          </Event>
+          <Event interval={"03.12"} title={"SWPP"}>
+            student_number: {user.student_number}
+          </Event>
+          <Event interval={"03.17"} title={"SWPP"}>
+            school: {user.school}
+          </Event>
+          <Event interval={"03.22"} title={"SWPP"}>
+            major: {user.major}
+          </Event>
+        </Timeline>
+      </Fragment>
+
       </div>
     );
   }

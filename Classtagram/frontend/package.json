@@ -11,6 +11,7 @@
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
+    "react-timeline-scribble": "^1.0.14",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "yup": "^0.27.0"
