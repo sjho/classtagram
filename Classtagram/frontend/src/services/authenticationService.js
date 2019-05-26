@@ -37,6 +37,7 @@ export const loginUserService = (request) => {
       return json;
     });
 };
+
 //backend에서 받아오기만 하는 액션이라 적어도 POST는 아닐 것 같음
 //TBD
 export const mainInfoService = (request) => {

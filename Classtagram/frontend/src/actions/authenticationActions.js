@@ -14,6 +14,7 @@ export const loginUserAction = (user) => {
   }
 };
 
+//never fail
 export const mainInfoAction = (user) => {
   return {
     type: types.MAIN_INFO,
