@@ -9,6 +9,10 @@ import PrivateRoute from './privateRoute';
 import LoginPage from '../components/loginPage';
 import RegisterPage from '../components/registerPage';
 import MainPage from '../components/mainPage';
+import CoursePage from '../components/coursePage';
+import PhotoPage from '../components/photoPage';
+import ManagePage from '../components/managePage';
+import StatPage from '../components/statPage';
 /*
 import CoursePage from '../components/coursePage';
 import ClassPage from '../components/classPage';
@@ -21,10 +25,14 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Switch>
-            <Route path='/' exact={true} component={MainPage} />
+            <Route path='/' exact={true} component={LoginPage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
             <PrivateRoute path='/main' component={MainPage} />
+            <PrivateRoute path='/course' component={CoursePage} />
+            <PrivateRoute path='/stat' component={StatPage} />
+            <PrivateRoute path='/manage' component={ManagePage} />
+            <PrivateRoute path='/Photo' component={PhotoPage} />
           </Switch>
         </div>
       </BrowserRouter>

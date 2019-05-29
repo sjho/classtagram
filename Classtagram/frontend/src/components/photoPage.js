@@ -9,7 +9,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import { styles } from './customStylesMui.js';
 
-import ManageDashBoard from "./subcomponents/manageDashBoard";
+import PhotoDashBoard from "./subcomponents/photoDashBoard";
 
 import './Styles.css';
 
@@ -25,7 +25,7 @@ import './Styles.css';
 //   updated: false
 // };
 
-class ManagePage extends Component {
+class PhotoPage extends Component {
   constructor(props) {
     super(props);
   }
@@ -61,7 +61,7 @@ class ManagePage extends Component {
       default:
         return (
           <div>
-            <ManageDashBoard />
+            <PhotoDashBoard />
           </div> 
         );
     }
@@ -72,4 +72,4 @@ const mapStateToProps = (response) => ({
   response
 });
 
-export default connect(mapStateToProps)(ManagePage);
+export default connect(mapStateToProps)(PhotoPage);

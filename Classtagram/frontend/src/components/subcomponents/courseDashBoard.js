@@ -17,9 +17,9 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Main_timeLine from './main_timeLine';
+import Course_timeLine from './course_timeLine';
 import Announce from './announce';
-import Main_courseEdit from './main_courseEdit';
+import Course_stat from './course_stat';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -104,7 +104,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   fixedHeight_half: {
     height: 341,
@@ -114,7 +114,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MainDashboard(props) {
+export default function CourseDashboard(props) {
 
   const listitems = [
     {id:0, itemname:'Main'},
@@ -176,7 +176,7 @@ export default function MainDashboard(props) {
         <List>
           {listitems.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={item.itemname==='Main' ? props.onLinkMain() : props.inLinkCourse()}>
+              <ListItem button onClick={item.itemname==='Main' ? props.onLinkMain() : props.inLinkCourse}>
                 <ListItemIcon>
                   {item.itemname === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
                 </ListItemIcon>
@@ -191,22 +191,22 @@ export default function MainDashboard(props) {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={2}>
             {/* Recent Orders */}
-            <Grid item xs={8}>
+            <Grid item xs={6}>
               <Paper className={fixedHeightPaper_full}>
-                <Main_timeLine />
+                <Course_timeLine />
               </Paper>
             </Grid>
-            <Grid container spacing={2} item xs={4} >
+            <Grid container spacing={2} item xs={6} >
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
-                  {/*<Announce />*/} 123123
+                  {/*<Main_Announce />*/} 123123
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
                   <div> 
-                    <Main_courseEdit />
+                    <Course_stat />
                   </div>
                 </Paper>
               </Grid>

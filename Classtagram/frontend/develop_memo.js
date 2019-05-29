@@ -25,7 +25,97 @@ container < Redux 참조 O / Actions을 보내서 리덕스 변경 가능
 각 loginPage, mainPage등은 모두 container/App.js 의 Child임
 -> loginPage 에서 상태를 바꾸거나, 참조하고싶을때(Redux를 이용해야 할 때) props(container/App.js)에서 액션을 보냄
 
+state(App.js)
+
+localStorage
+
+backend
+
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 05.26(일)
+State = {
+
+  username: "",
+  password: "",
+  pwconfirm: "",
+  is_student: true,
+  name: "",
+  student_number: "",
+  school: "",
+  major: ""
+
+  response: {
+  	success:
+  	message:
+
+  	user: {
+  		username: "",
+  		is_student: true,
+  		name: "",
+	 	student_number: "",
+  		school: "",
+  		major: ""	
+  	}
+  	course: {
+  		coursename: 
+		superuser:
+		participants: {
+
+		}
+  	}
+  	requse: {
+  		user:
+  		course:
+  	}
+  	photo: {
+  		coursename:
+  		photo:
+  		created:
+
+  	}
+  	tag: {
+  		user:
+  		course:
+		photo:
+  		x:
+  		y:
+  	}
+  }
+};
+
+1. 레이아웃 만들기
+2. 리다이렉션(정보교환없이)
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 05.28(화)
+혼동되지 않게!
+파일이름 abcDef_abcDef.js
+export abcDef_abcDef
+
+App              <-class | function->
+   | MainPage                           DashBoard
+   | CoursePage							subcomponents...	
+   | StatPage
+   | ClassPage
+				state사용 | state사용 X, props
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 05.29(수)
+
+        { participants.map( (participant) => (
+          <div key={participant.id} text-align='center'>
+            {participant.name}, {participant.student_number}, {participant.school}, {participant.major}
+          </div>
+        ))}
+
+
+css color list
+https://material-ui.com/customization/color/#color
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////        
+반복문, participants 에 있는 리스트를 반복함
 
 React, Redux, saga 이해
 

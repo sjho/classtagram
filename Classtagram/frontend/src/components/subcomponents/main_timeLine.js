@@ -11,11 +11,7 @@ import { styles } from '../customStylesMui.js';
 import { Timeline, Event } from "react-timeline-scribble";
 
 
-class Main_timeLine extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
+export default function Main_timeLine(props) {
     return (
       <div>
       	<Fragment>
@@ -57,7 +53,4 @@ class Main_timeLine extends Component {
       	</Fragment>
       </div>
     );
-  }
 }
-
-export default Main_timeLine;

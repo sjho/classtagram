@@ -35,6 +35,7 @@ class MainPage extends Component {
   }
   render() {
     let isSuccess, message;
+
     const user = JSON.parse(localStorage.getItem('user'))
     const onHandleLogout = () => {
       // 비밀번호와 비밀번호 확인이 일치하면 회원 정보를 POST 한다.
@@ -49,11 +50,40 @@ class MainPage extends Component {
     //   message = this.props.response.main.response.message;
     // }
 
-    return (
-      <div>
-        <MainDashBoard />
-      </div>
-    );
+    let linkto = "";
+    const onLickMain = () => {
+      linkto = '/main';
+    }    
+    const onLickCourse = () => {
+      linkto = '/course';
+    }
+    const onLickManage = () => {
+      linkto = '/manage';
+    }
+    const onLickPhoto = () => {
+      linkto = '/photo';
+    }
+    const onLickStat = () => {
+      linkto = '/stat';
+    }
+    switch(linkto) {
+      case '/main':
+        return (<Redirect to= '/main' />);
+      case '/course':
+        return (<Redirect to= '/course' />);
+      case '/manage':
+        return (<Redirect to= '/manage' />);
+      case '/photo':
+        return (<Redirect to= '/photo' />);
+      case '/stat':
+        return (<Redirect to= '/stat' />);
+      default:
+        return (
+          <div>
+            <MainDashBoard />
+          </div> 
+        );
+    }
   }
 }
 

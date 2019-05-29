@@ -17,9 +17,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Main_timeLine from './main_timeLine';
-import Announce from './announce';
-import Main_courseEdit from './main_courseEdit';
+import Photo from './photo';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -104,17 +102,17 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: 'flex',
     overflow: 'auto',
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
-  fixedHeight_half: {
+  fixedHeight: {
     height: 341,
   },
-  fixedHeight_full: {
+  fixedHeight_timeLine: {
     height: 700,
   },
 }));
 
-export default function MainDashboard(props) {
+export default function PhotoDashboard(props) {
 
   const listitems = [
     {id:0, itemname:'Main'},
@@ -133,8 +131,8 @@ export default function MainDashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
-  const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const fixedHeightPaper_timeLine = clsx(classes.paper, classes.fixedHeight_timeLine);
 
   return (
     <div className={classes.root}>
@@ -189,29 +187,7 @@ export default function MainDashboard(props) {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={2}>
-            {/* Recent Orders */}
-            <Grid item xs={8}>
-              <Paper className={fixedHeightPaper_full}>
-                <Main_timeLine />
-              </Paper>
-            </Grid>
-            <Grid container spacing={2} item xs={4} >
-              <Grid item xs={12} >
-                <Paper className={fixedHeightPaper_half}>
-                  {/*<Announce />*/} 123123
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} >
-                <Paper className={fixedHeightPaper_half}>
-                  <div> 
-                    <Main_courseEdit />
-                  </div>
-                </Paper>
-              </Grid>
-            </Grid>
-          </Grid>
+          <Photo />
         </Container>
       </main>
     </div>
