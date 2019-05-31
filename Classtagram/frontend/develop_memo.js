@@ -114,6 +114,19 @@ css color list
 https://material-ui.com/customization/color/#color
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 05.31(금)
+
+mainPage / coursePage 의 state에 linkto 추가
+
+SideBar에서 해당 course를 클릭하면 (DashBoard 컴포넌트)
+onClick => LinkCourse => MainPage에서 state의 linkto 를 /course로 바꾸고 리렌더링
+
+manage/stat/photo는 아직 바꾸지 않음
+
+main, course 등에서 state를 변경해서 써도 되는지 의문
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////        
 반복문, participants 에 있는 리스트를 반복함
 

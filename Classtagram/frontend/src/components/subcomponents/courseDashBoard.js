@@ -114,7 +114,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CourseDashboard(props) {
+export default function CourseDashboard({
+  onLinkMain,
+  onLinkCourse,
+  onLinkManage,
+  onLinkPhoto,
+  onLinkStat,
+  }) {
 
   const listitems = [
     {id:0, itemname:'Main'},
@@ -176,7 +182,7 @@ export default function CourseDashboard(props) {
         <List>
           {listitems.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={item.itemname==='Main' ? props.onLinkMain() : props.inLinkCourse}>
+              <ListItem button onClick={item.itemname==='Main' ? onLinkMain : onLinkCourse}>
                 <ListItemIcon>
                   {item.itemname === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
                 </ListItemIcon>

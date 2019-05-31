@@ -22,36 +22,46 @@ export const initialState = {
   student_number: "",
   school: "",
   major: "",
-  updated: false
+  updated: false,
+  linkto: "",
 };
 
 class CoursePage extends Component {
   constructor(props) {
     super(props);
+    this.state = initialState;
   }
   render() {
 
-    let linkto = "";
-    const onLinkMain = () => {
-      linkto = '/main';
-    }    
-    const onLinkCourse = () => {
-      linkto = '/course';
-    }
-    const onLinkManage = () => {
-      linkto = '/manage';
-    }
-    const onLinkPhoto = () => {
-      linkto = '/photo';
-    }
-    const onLinkStat = () => {
-      linkto = '/stat';
-    }
-    switch(linkto) {
+    const LinkMain = () => {
+      this.setState({
+        linkto : '/main'
+      })
+//      console.log("LinkMain Worked")
+    };
+    const LinkCourse = () => {
+      this.setState({
+        linkto : '/course'
+      })
+    };
+    const LinkManage = () => {
+      this.setState({
+        linkto : '/manage'
+      })
+    };
+    const LinkPhoto = () => {
+      this.setState({
+        linkto : '/photo'
+      })
+    };
+    const LinkStat = () => {
+      this.setState({
+        linkto : '/stat'
+      })
+    };
+    switch(this.state.linkto) {
       case '/main':
         return (<Redirect to= '/main' />);
-      case '/course':
-        return (<Redirect to= '/course' />);
       case '/manage':
         return (<Redirect to= '/manage' />);
       case '/photo':
@@ -61,7 +71,16 @@ class CoursePage extends Component {
       default:
         return (
           <div>
-            <CourseDashBoard />
+            <div>
+              {this.state.linkto}
+            </div>
+            <CourseDashBoard
+              onLinkMain = {LinkMain}
+              onLinkCourse = {LinkCourse}
+              onLinkManage = {LinkManage}
+              onLinkPhoto = {LinkPhoto}
+              onLinkStat = {LinkStat}
+            />
           </div> 
         );
     }

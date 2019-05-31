@@ -22,7 +22,8 @@ export const initialState = {
   student_number: "",
   school: "",
   major: "",
-  updated: false
+  updated: false,
+  linkto: "",
 };
 
 class MainPage extends Component {
@@ -33,6 +34,7 @@ class MainPage extends Component {
     this.props.dispatch(mainInfoAction(this.state.username));
 
   }
+
   render() {
     let isSuccess, message;
 
@@ -49,26 +51,33 @@ class MainPage extends Component {
     //   isSuccess = this.props.response.main.response.success;
     //   message = this.props.response.main.response.message;
     // }
-
-    let linkto = "";
-    const onLickMain = () => {
-      linkto = '/main';
-    }    
-    const onLickCourse = () => {
-      linkto = '/course';
-    }
-    const onLickManage = () => {
-      linkto = '/manage';
-    }
-    const onLickPhoto = () => {
-      linkto = '/photo';
-    }
-    const onLickStat = () => {
-      linkto = '/stat';
-    }
-    switch(linkto) {
-      case '/main':
-        return (<Redirect to= '/main' />);
+    const LinkMain = () => {
+      this.setState({
+        linkto : '/main'
+      })
+//      console.log("LinkMain Worked")
+    };
+    const LinkCourse = () => {
+      this.setState({
+        linkto : '/course'
+      })
+    };
+    const LinkManage = () => {
+      this.setState({
+        linkto : '/manage'
+      })
+    };
+    const LinkPhoto = () => {
+      this.setState({
+        linkto : '/photo'
+      })
+    };
+    const LinkStat = () => {
+      this.setState({
+        linkto : '/stat'
+      })
+    };
+    switch(this.state.linkto) {
       case '/course':
         return (<Redirect to= '/course' />);
       case '/manage':
@@ -80,7 +89,16 @@ class MainPage extends Component {
       default:
         return (
           <div>
-            <MainDashBoard />
+            <div>
+              {this.state.linkto}
+            </div>
+            <MainDashBoard
+              onLinkMain = {LinkMain}
+              onLinkCourse = {LinkCourse}
+              onLinkManage = {LinkManage}
+              onLinkPhoto = {LinkPhoto}
+              onLinkStat = {LinkStat}
+            />
           </div> 
         );
     }

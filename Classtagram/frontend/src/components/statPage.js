@@ -44,19 +44,19 @@ class StatPage extends Component {
       this.props.dispatch(logoutUserAction(this.state));
     }
     let linkto = "";
-    const onLickMain = () => {
+    const onLinkMain = () => {
       linkto = '/main';
     }    
-    const onLickCourse = () => {
+    const onLinkCourse = () => {
       linkto = '/course';
     }
-    const onLickManage = () => {
+    const onLinkManage = () => {
       linkto = '/manage';
     }
-    const onLickPhoto = () => {
+    const onLinkPhoto = () => {
       linkto = '/photo';
     }
-    const onLickStat = () => {
+    const onLinkStat = () => {
       linkto = '/stat';
     }
     switch(linkto) {
