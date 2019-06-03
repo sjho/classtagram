@@ -1,5 +1,5 @@
-import { put, call } from 'redux-saga/effects';
-import { registerUserService, loginUserService } from '../services/authenticationService';
+import { takeEvery, all, take, put, call, fork } from 'redux-saga/effects'
+import { registerUserService, loginUserService, logoutUserService, mainInfoService } from '../services/authenticationService';
 
 import * as types from '../actions'
 
@@ -21,5 +21,23 @@ export function* loginSaga(payload) {
     yield put({ type: types.LOGIN_USER_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.LOGIN_USER_ERROR, error })
+  }
+}
+
+export function* mainInfoSaga(payload) {
+  try {
+    const response = yield call(mainInfoService, payload);
+    yield put({ type: types.MAIN_INFO_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.MAIN_INFO_ERROR, error })
+  }
+}
+
+export function* logoutSaga(payload) {
+  try {
+    const response = yield call(logoutUserService, payload);
+    yield put({ type: types.LOGOUT_USER_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.LOGOUT_USER_ERROR, error })
   }
 }

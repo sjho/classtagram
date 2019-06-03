@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 
 import { registerUserAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
-import { styles } from "./customStylesMui";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { styles } from './customStylesMui.js';
+import './Styles.css';
 
 // 처음 회원가입 정보 저장
-const initialState = {
+export const initialState = {
   username: "",
   password: "",
   pwconfirm: "",
@@ -56,10 +57,13 @@ export class RegisterPage extends Component {
     
     return (
       <div>
+        <div className="header">
+          Classtagram
+        </div>
         <h3 style={{ textAlign: "center" }}>
           Register Form
         </h3>
-        {!isSuccess ? <div>{message}</div> : <Redirect to='dashboard' />}
+        {!isSuccess ? <div>{message}</div> : <Redirect to= 'login' />}
         <form onSubmit={this.onHandleLogin}>
           <div style={{ textAlign: "center" }}>
             <TextField
@@ -67,6 +71,7 @@ export class RegisterPage extends Component {
               type="username"
               name="username"
               value={this.state.username}
+              margin = 'dense'
               // 해당 Textfield의 값이 바뀌면 바로 현재 클래스의 state에 반영됩니다.
               onChange={e => this.setState({ username: e.target.value })}
               />
@@ -77,6 +82,7 @@ export class RegisterPage extends Component {
               type="password" 
               name="password" 
               value={this.state.password}
+              margin = 'dense'
               onChange={e => this.setState({ password: e.target.value })}
             />
           </div>
@@ -86,6 +92,7 @@ export class RegisterPage extends Component {
               type="password"
               name="pwconfirm"
               value={this.state.pwconfirm}
+              margin = 'dense'
               onChange={e => this.setState({ pwconfirm: e.target.value })}
             />
           </div>
@@ -95,6 +102,7 @@ export class RegisterPage extends Component {
               type="name"
               name="name"
               value={this.state.name}
+              margin = 'dense'
               onChange={e => this.setState({ name: e.target.value })}
             />
           </div>
@@ -104,6 +112,7 @@ export class RegisterPage extends Component {
               type="student_number"
               name="student_number"
               value={this.state.student_number}
+              margin = 'dense'
               onChange={e => this.setState({ student_number: e.target.value })}
             />
           </div>
@@ -113,6 +122,7 @@ export class RegisterPage extends Component {
               type="school" 
               name="school" 
               value={this.state.school}
+              margin = 'dense'
               onChange={e => this.setState({ school: e.target.value })}
             />
           </div>
@@ -122,6 +132,7 @@ export class RegisterPage extends Component {
               type="major" 
               name="major" 
               value={this.state.major}
+              margin = 'dense'
               onChange={e => this.setState({ major: e.target.value })}
             />
           </div>
@@ -132,7 +143,7 @@ export class RegisterPage extends Component {
           </div>
         </form>
         <div style={{ textAlign: "center" }}>
-          Already have account?
+          Already have account? 
           <Link  to='login'>Login here</Link>
         </div>
       </div>

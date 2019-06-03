@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 
 import { loginUserAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
-import { styles } from "./customStylesMui";
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
+import { styles } from './customStylesMui.js';
+import './Styles.css';
 
 // 처음 로그인 정보 저장
-const initialState = {
+export const initialState = {
   username: "",
   password: ""
 };
@@ -37,7 +38,7 @@ class LoginPage extends Component {
     }
 
     if (this.props.response.login.hasOwnProperty('response')) {
-      isSuccess = this.props.response.login.response.success;
+      isSuccess = this.props.response.login.response.success;  
       message = this.props.response.login.response.message;
       
       if (isSuccess) {
@@ -47,10 +48,13 @@ class LoginPage extends Component {
 
     return (
       <div>
+        <div className="header">
+          Classtagram
+        </div>
         <h3 style={{ textAlign: "center" }}>
           Login with your Email address or Username
         </h3>
-        {!isSuccess ? <div>{message}</div> : <Redirect to='dashboard' />}
+        {!isSuccess ? <div>{message}</div> : <Redirect to= '/main' />}
         <form onSubmit={this.onHandleLogin}>
           <div style={{ textAlign: "center" }}>
             <TextField
@@ -61,8 +65,9 @@ class LoginPage extends Component {
               // 해당 Textfield의 값이 바뀌면 바로 현재 클래스의 state에 반영됩니다.
               onChange={e => this.setState({ username: e.target.value })} />
           </div>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center" }} >
           <TextField
+              margin = 'dense'
               placeholder="password"
               type="password"
               name="password"
@@ -76,7 +81,7 @@ class LoginPage extends Component {
             </Button>
           </div>
         </form>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }} >
           Don't have account?
           <Link  to='register'>Register here</Link>
         </div>
