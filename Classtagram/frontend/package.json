@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.9.3",
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
+    "@material-ui/styles": "^4.0.0",
     "contentful": "^7.5.1",
     "formik": "^1.5.4",
     "react": "^16.8.6",
@@ -11,6 +13,8 @@
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0",
+    "react-timeline-scribble": "^1.0.14",
+    "recharts": "^1.6.2",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
     "yup": "^0.27.0"

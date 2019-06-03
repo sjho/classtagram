@@ -1,5 +1,5 @@
-import { take, takeLatest, call } from 'redux-saga/effects';
-import { registerSaga, loginSaga } from './authenticationSaga';
+import { takeEvery, all, take, put, call, fork } from 'redux-saga/effects'
+import { registerSaga, loginSaga, logoutSaga, mainInfoSaga } from './authenticationSaga';
 
 import * as types from '../actions';
 
@@ -21,3 +21,22 @@ export function* watchLoginAuthentication() {
     yield call(loginSaga, user);
   }
 }
+
+export function* watchMainInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { user } = yield take(types.MAIN_INFO);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(mainInfoSaga, user);
+  }
+}
+
+export function* watchLogoutAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { user } = yield take(types.LOGOUT_USER);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(logoutSaga, user);
+  }
+}
+

@@ -46,7 +46,17 @@ def Login(request):
 		login(request, user)
 		token, _ = Token.objects.get_or_create(user=user)
 
-		return JsonResponse({'success':True,'token': token.key, 'user': user.id, 'message':'login successed!'})
+		return JsonResponse({
+			'success':True,
+			'token': token.key, 
+			'username': user.username, 
+			'name': user.name, 
+			'student_number': user.student_number,
+			'school' : user.school,
+			'major' : user.major,
+			'is_student' : user.is_student,
+			'message':'login successed!'
+			})
 
 	except Exception as e:
 		return JsonResponse({'success':False, 'message':'error'})
