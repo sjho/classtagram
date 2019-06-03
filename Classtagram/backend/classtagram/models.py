@@ -32,9 +32,7 @@ class UserManager(BaseUserManager):
 		user.save(using=self._db)
 		return user
 
-
-		
-
+# 사용자 정의 유저 모델
 class User(AbstractBaseUser):
 	username = models.CharField(max_length=100, unique=True)
 	name = models.CharField(max_length=100)
@@ -58,3 +56,29 @@ class User(AbstractBaseUser):
 
 	class Meta:
 		ordering = ('id',)	
+
+
+# 강의 모델
+class Course(models.Model):
+	coursename = models.CharField(max_length=100, unique=True)
+	superuser = models.ForeignKey(User, related_name='courses', on_delete=models.CASCADE)
+	users = models.ManyToManyField(User)
+
+# 강의 등록 요청 모델
+class Request(models.Model):
+	user = models.ForeignKey(User, related_name='requests', on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, related_name='requests', on_delete=models.CASCADE)
+
+# 사진 모델
+class Photo(models.Model):
+	course = models.ForeignKey(Course, related_name='photos', on_delete=models.CASCADE)
+	photo = models.ImageField()
+	created = models.DateTimeField(auto_now_add=True)
+
+# 태그 모델
+class Tag(models.Model):
+	user = models.ForeignKey(User, related_name='tags', on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, related_name='tags', on_delete=models.CASCADE)
+	photo= models.ForeignKey(Photo, related_name='tags', on_delete=models.CASCADE)
+	x = models.FloatField()
+	y = models.FloatField()

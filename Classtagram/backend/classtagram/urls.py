@@ -6,6 +6,14 @@ from django.conf.urls import url
 urlpatterns = [
     path('register/', views.Register.as_view()),
     path('login/', views.Login),
+    path('courses/', views.CourseList.as_view()),
+    path('courses/<int:pk>', views.CourseDetail.as_view()),
+    path('requests/', views.RequestList.as_view()),
+    path('requests/<int:pk>', views.RequestDetail.as_view()),
+    path('photos/', views.PhotoList.as_view()),
+    path('photos/<int:pk>', views.PhotoDetail.as_view()),
+    path('tags/', views.TagList.as_view()),
+    path('tags/<int:pk>', views.TagDetail.as_view()),
 ]
 
 urlpatterns=format_suffix_patterns(urlpatterns)
