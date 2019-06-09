@@ -71,9 +71,6 @@ class CoursePage extends Component {
       default:
         return (
           <div>
-            <div>
-              {this.state.linkto}
-            </div>
             <CourseDashBoard
               onLinkMain = {LinkMain}
               onLinkCourse = {LinkCourse}

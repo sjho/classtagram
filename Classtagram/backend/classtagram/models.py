@@ -62,7 +62,7 @@ class User(AbstractBaseUser):
 class Course(models.Model):
 	coursename = models.CharField(max_length=100, unique=True)
 	superuser = models.ForeignKey(User, related_name='courses', on_delete=models.CASCADE)
-	users = models.ManyToManyField(User)
+	users = models.ManyToManyField(User, related_name='courses_user')
 
 # 강의 등록 요청 모델
 class Request(models.Model):

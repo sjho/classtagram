@@ -6,6 +6,7 @@ from django.conf.urls import url
 urlpatterns = [
     path('register/', views.Register.as_view()),
     path('login/', views.Login),
+    path('users/<int:pk>', views.UserDetail.as_view()),
     path('courses/', views.CourseList.as_view()),
     path('courses/<int:pk>', views.CourseDetail.as_view()),
     path('requests/', views.RequestList.as_view()),

@@ -33,6 +33,37 @@ class Register(APIView):
 	#def perform_create(self, serializer):
 	#	serializer.save()
 
+# 강의 수정/삭제 뷰
+class UserDetail(APIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_object(self, pk):
+        try:
+            obj = User.objects.get(pk=pk)
+            self.check_object_permissions(self.request, obj)
+            return obj
+        except Meeting.DoesNotExist:
+            raise Http404
+   
+    def get(self, request, pk, format=None):
+        User = self.get_object(pk)
+        serializer = UserSerializer(User)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        User = self.get_object(pk)
+        serializer = UserSerializer(User, data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=self.request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        User = self.get_object(pk)
+        User.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 # 로그인 뷰
 @csrf_exempt
 def Login(request):
