@@ -6,10 +6,13 @@ export default function(state = initialState, action) {
   const response = action.response;
 
   switch(action.type) {
-    case types.MAININFO_USER_SUCCESS:
-    	return Object.assign({}, state, response.info {
-      		response: response.meta
-    	})
+    case types.MAIN_INFO_SUCCESS:
+      console.log(response);
+      return {response};
+
+    //	return Object.assign({}, state, response.info, {
+    //  		response: response
+    //	});
     	// response.info = {
      //    username: ...
      //    password: ...
@@ -20,10 +23,8 @@ export default function(state = initialState, action) {
      //    success: ...
      //    message: ...
      //  }
-    case types.MAININFO_USER_ERROR:
-    	return Object.assign({}, state, {
-    		  response: response.meta
-    	});
+    case types.MAIN_INFO_ERROR:
+      return {response};
 
     default:
       return state;

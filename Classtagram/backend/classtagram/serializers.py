@@ -8,13 +8,22 @@ class RegisterSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ('username', 'password', 'is_student', 'name', 'student_number', 'school', 'major')
 
+# 유저 정보 - 강의 시리얼라이저
+class UserCourseSerializer(serializers.ModelSerializer):
+	superuser = serializers.ReadOnlyField(source='superuser.id')
+	users = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True)
+
+	class Meta:
+		model = Course
+		fields = ('id', 'coursename', 'superuser', 'users')
 
 # 유저 정보를 불러오는 시리얼라이저
 class UserSerializer(serializers.ModelSerializer):
+	courses = UserCourseSerializer(source='courses_user', read_only=True, many=True)
 	
 	class Meta:
 		model = User
-		fields = ('username', 'is_student', 'name', 'student_number', 'school', 'major')
+		fields = ('username', 'is_student', 'name', 'student_number', 'school', 'major', 'courses')
 		read_only_fields = ('username', 'is_student',)
 
 # 강의 등록 시리얼라이저

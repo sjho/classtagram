@@ -27,6 +27,7 @@ export function* loginSaga(payload) {
 export function* mainInfoSaga(payload) {
   try {
     const response = yield call(mainInfoService, payload);
+    console.log(response)
     yield put({ type: types.MAIN_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.MAIN_INFO_ERROR, error })

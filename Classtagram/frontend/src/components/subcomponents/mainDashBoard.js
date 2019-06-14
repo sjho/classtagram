@@ -115,6 +115,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MainDashboard({
+  courses,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
@@ -128,7 +129,11 @@ export default function MainDashboard({
     {id:3, itemname:'AL'},
     {id:4, itemname:'CA'},
     {id:5, itemname:'LD'},
-  ]
+  ];
+
+  const list = courses != undefined ? courses.slice() : undefined;
+
+  if (courses != undefined) list.unshift({coursename:'Main'});
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -140,6 +145,9 @@ export default function MainDashboard({
   };
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
+
+  console.log(listitems);
+  console.log(list);
 
   return (
     <div className={classes.root}>
@@ -179,16 +187,19 @@ export default function MainDashboard({
         </div>
         <Divider />
         <List>
-          {listitems.map( (item) => (
+          {
+            (list != undefined) ?
+            list.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={item.itemname==='Main' ? onLinkMain : onLinkCourse}>
+              <ListItem button onClick={item.coursename==='Main' ? onLinkMain : onLinkCourse}>
                 <ListItemIcon>
-                  {item.itemname === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
+                  {item.coursename === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
                 </ListItemIcon>
-                <ListItemText primary= {item.itemname} />
+                <ListItemText primary= {item.coursename} />
               </ListItem>
             </div>             
-          ))}
+          )) : list
+          }
         </List>
       </Drawer>
       <main className={classes.content}>
