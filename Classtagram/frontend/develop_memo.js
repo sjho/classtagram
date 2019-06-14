@@ -54,14 +54,14 @@ State = {
   		username: "",
   		is_student: true,
   		name: "",
-	 	student_number: "",
+      student_number: "",
   		school: "",
   		major: ""	
   	}
   	course: {
   		coursename: 
-		superuser:
-		participants: {
+		  superuser:
+		  participants: {
 
 		}
   	}
@@ -78,7 +78,7 @@ State = {
   	tag: {
   		user:
   		course:
-		photo:
+		  photo:
   		x:
   		y:
   	}
@@ -127,7 +127,105 @@ manage/stat/photo는 아직 바꾸지 않음
 main, course 등에서 state를 변경해서 써도 되는지 의문
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////        
+//////////////////////////////////////////////////////////////////////////////////////////////////////// 
+// 06.13(목)
+export const initialState = {
+  username: "",
+  password: "",
+  pwconfirm: "",
+  is_student: true,
+  name: "",
+  student_number: "",
+  school: "",
+  major: "",
+  linkto:"",
+
+  response: {
+    success:
+    message:
+
+    user: {
+      username: "", //ID
+      is_student: true,
+      name: "", //Name
+      student_number: "",
+      school: "",
+      major: "",
+    },
+    courses: [
+      {
+        coursename: "",
+        superuser:"",
+        participants: [
+          {},{},{}
+        ],
+      },
+    ],
+    //requsers: isStudent=false 인 경우에만 로드
+    requsers: [
+      {
+        username:
+        password:
+        ...
+      },
+      {},{},
+    ],
+    photoes: [
+      {
+        coursename:
+        photo:
+        created:
+      },
+      {},{},
+    ],
+    //tag: isStudent=true: 본인 이름과 맞는 태그만 로드 else 모든 태그 로드
+    tag: [
+      {
+        name:"",
+        coursename:"",
+        created:"",
+        x:123,
+        y:123,
+      },
+      {},{},{},
+    ]
+    stat: [
+      {
+
+        created:"", 
+      },
+      {},{},{}
+    ]
+  }
+};
+
+login할때 reponse를 받아와서 localStorage에 저장하고, reponse를 지우면 됨.
+
+크게 두가지로 나누어서 생각
+Main page
+- login / register / main / coursesearch
+Course Page
+- course / tag / stat / manage
+
+main page rendering
+1. user - 당연
+2. courses - 일반적으로 로그인할 때 받아오면 되지만, 코스를 추가하는 등을 헀을때 업데이트가 되어야 함 
+3. photoes - 실시간 추가까지는 어려울 것 같고, 새로고침하면 re-rendering을 통해 추가가 가능해야 할 듯.
+
+course page rendering
+1. tag - tag가 달려있는지 알아야 stat 등에서 사용이 가능함
+2. stat - tag를 달거나 하면 업데이트 되어야 하므로
+3. requsers - manage page 들어갈 때 해야됨
+
+현재 만들어져있는 teststor은 두가지.
+MainPage 및 CoursePage.
+teststor 형식과 같게 데이터를 백엔드에서 받아온 뒤에,
+백엔드에서 데이터를 가져와서 teststor에 저장 혹은,
+현재 상태의 teststor를 localstorage로 대체할 예정
+각각에서 새로고침할 때마다 Rerendering이 가능하게.
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 반복문, participants 에 있는 리스트를 반복함
 
 React, Redux, saga 이해
@@ -193,3 +291,107 @@ export const loginUserService = (request) => {
     });
 };
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//course timeline test case
+            <Grid className={classes.container} spacing={2} item xs={4} >
+              <div className={classes.root} >
+                { photoes_1.map( (photo) => (
+                  <div key={photo.id} text-align='center'>
+                    <Button variant="contained" color={photo.isUploaded ? (photo.isChecked ? 'primary' : 'secondary') : 'grey'}
+                            className={classes.button} size='middle'>
+                      {photo.created}
+                      <PhotoIcon className={classes.Icon} />
+                    </Button>
+                  </div>
+                  ))}
+                </div>
+            </Grid>
+            <Grid className={classes.container} spacing={2} item xs={4} >
+              <div className={classes.root} >
+                { photoes_2.map( (photo) => (
+                  <div key={photo.id}>
+                    <Button variant="contained" color={photo.isUploaded ? (photo.isChecked ? 'primary' : 'secondary') : 'grey'}
+                            className={classes.button} size='middle'>
+                      {photo.created}
+                      <PhotoIcon className={classes.Icon} />
+                    </Button>
+                  </div>
+                  ))}
+                </div>
+            </Grid>
+            <Grid className={classes.container} spacing={2} item xs={4} >
+              <div className={classes.root}>
+                { photoes_3.map( (photo) => (
+                  <div key={photo.id}>
+                    <Button variant="contained" color={photo.isUploaded ? (photo.isChecked ? 'primary' : 'secondary') : 'grey'}
+                            className={classes.button} size='middle'>
+                      {photo.created}
+                      <PhotoIcon className={classes.Icon} />
+                    </Button>
+                  </div>
+                  ))}
+              </div>
+            </Grid>
+          </Grid>
+
+
+
+              const photoes_1 = [
+      {id: 1 , created: '03.02', isChecked: true, isUploaded: true},
+      {id: 4 , created: '03.09', isChecked: true, isUploaded: true},
+      {id: 7 , created: '03.16', isChecked: true, isUploaded: true},
+      {id: 10 , created: '03.23', isChecked: true, isUploaded: true},
+      {id: 13 , created: '04.02', isChecked: true, isUploaded: true},
+      {id: 16 , created: '04.09', isChecked: true, isUploaded: true},
+      {id: 19 , created: '04.16', isChecked: false, isUploaded: true},
+      {id: 22 , created: '05.02', isChecked: false, isUploaded: false},
+      {id: 25 , created: '05.09', isChecked: false, isUploaded: false},
+      {id: 28 , created: '05.16', isChecked: false, isUploaded: false},
+    ];
+    const photoes_2 = [
+      {id: 2 , created: '03.04', isChecked: true, isUploaded: true},
+      {id: 5 , created: '03.11', isChecked: true, isUploaded: true},
+      {id: 8 , created: '03.18', isChecked: true, isUploaded: true},
+      {id: 11 , created: '03.25', isChecked: true, isUploaded: true},
+      {id: 14 , created: '04.04', isChecked: true, isUploaded: true},
+      {id: 17 , created: '04.11', isChecked: true, isUploaded: true},
+      {id: 20 , created: '04.18', isChecked: false, isUploaded: true},
+      {id: 23 , created: '05.04', isChecked: false, isUploaded: false},
+      {id: 26 , created: '05.11', isChecked: false, isUploaded: false},
+      {id: 29 , created: '05.18', isChecked: false, isUploaded: false},
+    ];
+    const photoes_3 = [
+      {id: 3 , created: '03.06', isChecked: true, isUploaded: true},
+      {id: 6 , created: '03.13', isChecked: true, isUploaded: true},
+      {id: 9 , created: '03.20', isChecked: true, isUploaded: true},
+      {id: 12 , created: '03.27', isChecked: true, isUploaded: true},
+      {id: 15 , created: '04.06', isChecked: true, isUploaded: true},
+      {id: 18 , created: '04.13', isChecked: false, isUploaded: true},
+      {id: 21 , created: '04.20', isChecked: false, isUploaded: true},
+      {id: 24 , created: '05.06', isChecked: false, isUploaded: false},
+      {id: 27 , created: '05.13', isChecked: false, isUploaded: false},
+      {id: 30 , created: '05.20', isChecked: false, isUploaded: false},
+    ];

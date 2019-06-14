@@ -32,33 +32,39 @@ class CoursePage extends Component {
     this.state = initialState;
   }
   render() {
-
     const LinkMain = () => {
       this.setState({
         linkto : '/main'
       })
 //      console.log("LinkMain Worked")
     };
-    const LinkCourse = () => {
+    const LinkCourse = (coursename) => {
+      console.log(coursename);
+      //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
       this.setState({
         linkto : '/course'
       })
     };
-    const LinkManage = () => {
+    const LinkManage = (coursename) => {
       this.setState({
         linkto : '/manage'
       })
     };
-    const LinkPhoto = () => {
+    const LinkPhoto = (coursename, created) => {
       this.setState({
         linkto : '/photo'
       })
     };
-    const LinkStat = () => {
+    const LinkStat = (coursename) => {
       this.setState({
         linkto : '/stat'
       })
     };
+    const LinkCreate = () => {
+      this.setState({
+        linkto: '/create'
+      })
+    }    
     switch(this.state.linkto) {
       case '/main':
         return (<Redirect to= '/main' />);
@@ -71,15 +77,12 @@ class CoursePage extends Component {
       default:
         return (
           <div>
-            <div>
-              {this.state.linkto}
-            </div>
             <CourseDashBoard
               onLinkMain = {LinkMain}
-              onLinkCourse = {LinkCourse}
-              onLinkManage = {LinkManage}
-              onLinkPhoto = {LinkPhoto}
-              onLinkStat = {LinkStat}
+              onLinkCourse = {(e) => LinkCourse(e)}
+              onLinkManage = {(e) => LinkManage(e)}
+              onLinkPhoto = {(e) => LinkPhoto(e)}
+              onLinkStat = {(e) => LinkStat(e)}
             />
           </div> 
         );

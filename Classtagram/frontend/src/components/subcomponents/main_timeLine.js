@@ -11,46 +11,28 @@ import { styles } from '../customStylesMui.js';
 import { Timeline, Event } from "react-timeline-scribble";
 
 
-export default function Main_timeLine(props) {
+export default function Main_timeLine({
+  teststor,
+  onLinkPhoto_timeLine,
+}) {
+  console.log(teststor);
     return (
+
       <div>
-      	<Fragment>
-       		<h2>
-         		1111
-        	</h2>
-        	<Timeline>
-          		<Event interval={"03.02"} title={"SWPP"}>
-            		222
-          		</Event>
-          		<Event interval={"03.07"} title={"SWPP"}>
-            		333
-          		</Event>
-          		<Event interval={"03.12"} title={"SWPP"}>
-            		444
-          		</Event>
-          		<Event interval={"03.17"} title={"SWPP"}>
-            		555
-          		</Event>
-          		<Event interval={"03.22"} title={"SWPP"}>
-            		666
-          		</Event>
-              <Event interval={"03.02"} title={"SWPP"}>
-                222
-              </Event>
-              <Event interval={"03.07"} title={"SWPP"}>
-                333
-              </Event>
-              <Event interval={"03.12"} title={"SWPP"}>
-                444
-              </Event>
-              <Event interval={"03.17"} title={"SWPP"}>
-                555
-              </Event>
-              <Event interval={"03.22"} title={"SWPP"}>
-                666
-              </Event>
-        	</Timeline>
-      	</Fragment>
+        <Fragment>
+          <h2>
+            TimeLine
+          </h2>
+          <Timeline>
+            {teststor.photoes.map( (item) => (
+              <div>
+                <Event interval={item.created} title={item.coursename}>
+                  <Link onClick = {() => onLinkPhoto_timeLine(item.coursename, item.created)}>{item.photo}</Link>
+                </Event>
+              </div>             
+            ))}
+          </Timeline>
+        </Fragment>
       </div>
     );
 }

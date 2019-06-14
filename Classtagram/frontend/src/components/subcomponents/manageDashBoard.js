@@ -114,16 +114,208 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ManageDashboard(props) {
+export default function ManageDashboard({
+  onLinkMain,
+  onLinkCourse,
+  onLinkManage,
+  onLinkPhoto,
+  onLinkStat,
+  }) {
+  const teststor = {
+    user: {
+      username: "test01", //ID
+      is_student: true,
+      name: "test01", //Name
+      student_number: "0101-01010",
+      school: "SNU",
+      major: "CSE",
+    },
+    course: {
+      coursename: "SWPP",
+      superuser: [
+        {
+          username: "test00", //ID
+          is_student: false,
+          name: "test00", //Name
+          student_number: "0000-00000",
+          school: "SNU",
+          major: "CSE",         
+        }
+      ],
+      participants: [    
+          {
+            username: "test01", //ID
+            is_student: true,
+            name: "test01", //Name
+            student_number: "0101-01010",
+            school: "SNU",
+            major: "CSE",
+          },
+          {
+            username: "test02", //ID
+            is_student: true,
+            name: "test02", //Name
+            student_number: "0202-02020",
+            school: "SNU",
+            major: "CSE",
+          },
+          {
+            username: "test03", //ID
+            is_student: true,
+            name: "test03", //Name
+            student_number: "0303-03030",
+            school: "SNU",
+            major: "CSE",
+          },
+          {
+            username: "test04", //ID
+            is_student: true,
+            name: "test04", //Name
+            student_number: "0404-04040",
+            school: "SNU",
+            major: "CSE",
+          },  
+      ],
+    },
+    //top:selected, bottom:courses
+    courses: [
+      {
+        coursename: "SWPP",
+        superuser:"prof_1",
+        participants: [                            
+        ],
+      },
+      {
+        coursename: "AL",
+        superuser:"prof_2",
+        participants: [
 
-  const listitems = [
-    {id:0, itemname:'Main'},
-    {id:1, itemname:'Courses'},
-    {id:2, itemname:'SWPP'},
-    {id:3, itemname:'AL'},
-    {id:4, itemname:'CA'},
-    {id:5, itemname:'LD'},
-  ]
+        ],
+      },
+      {
+        coursename: "CA",
+        superuser:"prof_3",
+        participants: [
+
+        ],
+      },
+    ],    
+    requsers: [
+      {
+        username:"test01",
+        name:"test01",
+        student_number:"0101-01010",
+        school: "SNU",
+        major: "CSE",
+      },
+      {
+        username:"test02",
+        name:"test02",
+        student_number:"0202-02020",
+        school: "SNU",
+        major: "CSE",
+      },
+      {
+        username:"test03",
+        name:"test03",
+        student_number:"0303-03030",
+        school: "SNU",
+        major: "CSE",
+      },
+      {
+        username:"test04",
+        name:"test04",
+        student_number:"0404-04040",
+        school: "SNU",
+        major: "CSE",
+      },                  
+    ],
+    photoes: [
+      {
+        coursename:"SWPP",
+        photo:"photo_1",
+        created:"03.03",
+        isChecked: true,
+        isUploaded: true,
+      },
+      {
+        coursename:"AL",
+        photo:"photo_2",
+        created:"03.06",
+        isChecked: true,
+        isUploaded: true,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_3",
+        created:"03.06",
+        isChecked: false,
+        isUploaded: true,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_4",
+        created:"03.10",
+        isChecked: false,
+        isUploaded: true,        
+      },
+      {
+        coursename:"AL",
+        photo:"photo_5",
+        created:"03.13",
+        isChecked: false,
+        isUploaded: false,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_6",
+        created:"03.13",
+        isChecked: false,
+        isUploaded: false,        
+      },
+    ],
+    tag: [
+      {
+        name:"test01",
+        coursename:"SWPP",
+        created:"03.03",
+        x:123,
+        y:123,
+      },
+    ],
+    stat: [
+      {
+        coursename: "SWPP",
+        attendance: true,
+        created:"03.03", 
+      },
+      {
+        coursename: "AL",
+        attendance: true,
+        created:"03.06", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: true,
+        created:"03.06", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: true,
+        created:"03.06", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: false,
+        created:"03.13", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: false,
+        created:"03.13", 
+      },                        
+    ]    
+  };
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -173,13 +365,21 @@ export default function ManageDashboard(props) {
         </div>
         <Divider />
         <List>
-          {listitems.map( (item) => (
+          <div>
+            <ListItem button onClick={onLinkMain}>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary= "Main" />
+            </ListItem>
+          </div>
+          {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={item.itemname==='Main' ? props.onLinkMain() : props.inLinkCourse()}>
+              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
                 <ListItemIcon>
-                  {item.itemname === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
+                  <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary= {item.itemname} />
+                <ListItemText primary= {item.coursename} />
               </ListItem>
             </div>             
           ))}
@@ -191,12 +391,16 @@ export default function ManageDashboard(props) {
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Paper className={fixedHeightPaper_full}>
-                <Manage_Req />
+                <Manage_Req
+                  teststor={teststor}
+                />
               </Paper>
             </Grid>
             <Grid item xs={6} >
               <Paper className={fixedHeightPaper_full}>
-                <Manage_List />
+                <Manage_List
+                  teststor={teststor}
+                />
               </Paper>            
             </Grid>
           </Grid>

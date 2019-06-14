@@ -121,14 +121,83 @@ export default function MainDashboard({
   onLinkPhoto,
   onLinkStat,
   }) {
-  const listitems = [
-    {id:0, itemname:'Main'},
-    {id:1, itemname:'Courses'},
-    {id:2, itemname:'SWPP'},
-    {id:3, itemname:'AL'},
-    {id:4, itemname:'CA'},
-    {id:5, itemname:'LD'},
-  ]
+  const teststor = {
+    user: {
+      username: "test01", //ID
+      is_student: true,
+      name: "test01", //Name
+      student_number: "0101-01010",
+      school: "SNU",
+      major: "CSE",
+    },
+    courses: [
+      {
+        coursename: "SWPP",
+        superuser:"prof_1",
+        participants: [
+
+        ],
+      },
+      {
+        coursename: "AL",
+        superuser:"prof_2",
+        participants: [
+
+        ],
+      },
+      {
+        coursename: "CA",
+        superuser:"prof_3",
+        participants: [
+
+        ],
+      },
+    ],
+    photoes: [
+      {
+        coursename:"SWPP",
+        photo:"photo_1",
+        created:"03.03",
+        isChecked: true,
+        isUploaded: true,
+      },
+      {
+        coursename:"AL",
+        photo:"photo_2",
+        created:"03.06",
+        isChecked: true,
+        isUploaded: true,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_3",
+        created:"03.06",
+        isChecked: false,
+        isUploaded: true,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_4",
+        created:"03.10",
+        isChecked: false,
+        isUploaded: true,        
+      },
+      {
+        coursename:"AL",
+        photo:"photo_5",
+        created:"03.13",
+        isChecked: false,
+        isUploaded: false,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_6",
+        created:"03.13",
+        isChecked: false,
+        isUploaded: false,        
+      },
+    ],
+  };
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -179,13 +248,21 @@ export default function MainDashboard({
         </div>
         <Divider />
         <List>
-          {listitems.map( (item) => (
+          <div>
+            <ListItem button onClick={onLinkMain}>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary= "Main" />
+            </ListItem>
+          </div>
+          {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={item.itemname==='Main' ? onLinkMain : onLinkCourse}>
+              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
                 <ListItemIcon>
-                  {item.itemname === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
+                  <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary= {item.itemname} />
+                <ListItemText primary= {item.coursename} />
               </ListItem>
             </div>             
           ))}
@@ -198,7 +275,10 @@ export default function MainDashboard({
             {/* Recent Orders */}
             <Grid item xs={8}>
               <Paper className={fixedHeightPaper_full}>
-                <Main_timeLine />
+                <Main_timeLine
+                  teststor={teststor}
+                  onLinkPhoto_timeLine={(e)=>onLinkPhoto(e)}
+                />
               </Paper>
             </Grid>
             <Grid container spacing={2} item xs={4} >
@@ -211,7 +291,10 @@ export default function MainDashboard({
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
                   <div> 
-                    <Main_courseEdit />
+                    <Main_courseEdit
+                      teststor = {teststor}
+                      onEdit = {() => onLinkMain()}
+                    />
                   </div>
                 </Paper>
               </Grid>
