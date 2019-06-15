@@ -211,9 +211,6 @@ export default function MainDashboard({
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
-  console.log(listitems);
-  console.log(list);
-
   return (
     <div className={classes.root}>
       <CssBaseline />
