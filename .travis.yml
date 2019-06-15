@@ -10,6 +10,7 @@ install:
 - pip3 install django-cors-headers
 - pip3 install django-rest-auth
 - pip3 install django-allauth
+- pip3 install Pillow
 script:
 - cd Classtagram/backend
 - coverage run --source='.' manage.py test

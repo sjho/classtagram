@@ -69,20 +69,10 @@ const useStyles = makeStyles(theme => ({
 //   );
 // }
 
-export default function Manage_List(props) {
+export default function Manage_List({
+  teststor,
+}) {
     const classes = useStyles();
-    const participants = [
-      {id: 0 , name: 'instructor', isStudent: false, student_number:'0000-00000', school: 'SNU', major: 'CSE'},
-      {id: 1 , name: 'test01', isStudent: true, student_number:'1111-11111', school: 'SNU', major: 'CSE'},
-      {id: 2 , name: 'test02', isStudent: true, student_number:'2222-22222', school: 'SNU', major: 'EE'},
-      {id: 3 , name: 'test03', isStudent: true, student_number:'3333-33333', school: 'SNU', major: 'CSE'},
-      {id: 4 , name: 'test04', isStudent: true, student_number:'4444-44444', school: 'SNU', major: 'CSE'},
-      {id: 5 , name: 'test05', isStudent: true, student_number:'5555-55555', school: 'SNU', major: 'MAE'},
-      {id: 6 , name: 'test06', isStudent: true, student_number:'6666-66666', school: 'SNU', major: 'EE'},
-      {id: 7 , name: 'test07', isStudent: true, student_number:'7777-77777', school: 'SNU', major: 'CSE'},
-      {id: 8 , name: 'test08', isStudent: true, student_number:'8888-88888', school: 'SNU', major: 'CSE'},
-      {id: 9 , name: 'test09', isStudent: true, student_number:'9999-99999', school: 'SNU', major: 'CSE'},
-    ];
     return (
       <div>
         <Table className={classes.table} >
@@ -95,8 +85,18 @@ export default function Manage_List(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          { participants.map( (participant) => (
-            <TableRow className={participant.isStudent? classes.tablerow_student : classes.tablerow_instructor} key={participant.id}>
+          { teststor.course.superuser.map( (participant) => (
+            <TableRow className={participant.is_student? classes.tablerow_student : classes.tablerow_instructor} key={participant.id}>
+              <TableCell component="th" scope="row">
+                {participant.name}
+              </TableCell>
+              <TableCell align="right">{participant.student_number}</TableCell>
+              <TableCell align="right">{participant.school}</TableCell>
+              <TableCell align="right">{participant.major}</TableCell>
+            </TableRow>    
+          ))}        
+          { teststor.course.participants.map( (participant) => (
+            <TableRow className={participant.is_student? classes.tablerow_student : classes.tablerow_instructor} key={participant.id}>
               <TableCell component="th" scope="row">
                 {participant.name}
               </TableCell>

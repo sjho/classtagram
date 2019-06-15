@@ -13,6 +13,7 @@ import CoursePage from '../components/coursePage';
 import PhotoPage from '../components/photoPage';
 import ManagePage from '../components/managePage';
 import StatPage from '../components/statPage';
+//import CreatePage from '../components/createPage';
 /*
 import CoursePage from '../components/coursePage';
 import ClassPage from '../components/classPage';
@@ -32,7 +33,7 @@ class App extends Component {
             <PrivateRoute path='/course' component={CoursePage} />
             <PrivateRoute path='/stat' component={StatPage} />
             <PrivateRoute path='/manage' component={ManagePage} />
-            <PrivateRoute path='/Photo' component={PhotoPage} />
+            <PrivateRoute path='/photo' component={PhotoPage} />
           </Switch>
         </div>
       </BrowserRouter>

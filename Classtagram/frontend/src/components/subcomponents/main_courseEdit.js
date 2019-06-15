@@ -1,53 +1,63 @@
 import React from 'react';
-import clsx from 'clsx';
-import Button from '@material-ui/core/Button';
-import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import AddIcon from '@material-ui/icons/Add';
+import DirectionsIcon from '@material-ui/icons/Directions';
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1),
-    alignItems: 'center',
-    display: 'flex',
-    width: '300',
-  },
-  Icon: {
-    marginLeft: theme.spacing(1),
-  },
-  iconSmall: {
-    fontSize: 20,
-  },
+
+const useStyles = makeStyles({
   root: {
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
-    width: 'flex',
-    margin: theme.spacing(1),
+    width: 300,
   },
   input: {
     marginLeft: 8,
+    width: 200,
     flex: 1,
   },
-}));
+  iconButton: {
+    padding: 10,
+  },
+});
 
 
-export default function Main_CourseEdit() {
+export default function Main_courseEdit({
+  onEdit,
+}) {
   const classes = useStyles();
-  const isStudent = true;//props.props.isStudent
+  let coursecode;
+
+  const onHandleSubmit = () => {
+    //console.log(coursecode);
+    onEdit(coursecode);
+    coursecode = "";
+  }
+  const onHandleChange = (e) => {
+    //console.log("111");
+    coursecode = e.target.value;
+  }
   return (
     <div>
-      <Button disabled={isStudent} variant="contained" color="primary" className={classes.button}>
-        Create Course  
-        <AddIcon className={classes.Icon} />
-      </Button>
-      <Paper className={classes.root}>
-        <SearchIcon className={classes.Icon} />
-        <InputBase className={classes.input} placeholder="Search..." />
+      <Paper className={classes.root} fullWidth>
+        <form>
+          <IconButton className={classes.iconButton} aria-label="Search">
+            <AddIcon onClick = {() => onHandleSubmit()} />
+          </IconButton>
+          <InputBase className={classes.input}
+            placeholder="Course Code"
+            value={coursecode}
+            onChange = {(e) => onHandleChange(e)}
+          />
+
+        </form>
       </Paper>
     </div>
-    );
+  );
 }
+

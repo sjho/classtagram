@@ -13,47 +13,65 @@ import ManageDashBoard from "./subcomponents/manageDashBoard";
 
 import './Styles.css';
 
-// export const initialState = {
-//   username: "",
-//   password: "",
-//   pwconfirm: "",
-//   is_student: true,
-//   name: "",
-//   student_number: "",
-//   school: "",
-//   major: "",
-//   updated: false
-// };
+export const initialState = {
+  username: "",
+  password: "",
+  pwconfirm: "",
+  is_student: true,
+  name: "",
+  student_number: "",
+  school: "",
+  major: "",
+  updated: false,
+  linkto: "",
+};
 
 class ManagePage extends Component {
   constructor(props) {
     super(props);
+    this.state = initialState;
   }
   render() {
 
     let linkto = "";
-    const onLinkMain = () => {
-      linkto = '/main';
-    }    
-    const onLinkCourse = () => {
-      linkto = '/course';
+    const LinkMain = () => {
+      this.setState({
+        linkto : '/main'
+      })
+//      console.log("LinkMain Worked")
+    };
+    const LinkCourse = (coursename) => {
+      console.log(coursename);
+      //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
+      this.setState({
+        linkto : '/course'
+      })
+    };
+    const LinkManage = (coursename) => {
+      this.setState({
+        linkto : '/manage'
+      })
+    };
+    const LinkPhoto = (coursename, created) => {
+      this.setState({
+        linkto : '/photo'
+      })
+    };
+    const LinkStat = (coursename) => {
+      this.setState({
+        linkto : '/stat'
+      })
+    };
+    const LinkCreate = () => {
+      this.setState({
+        linkto: '/create'
+      })
     }
-    const onLinkManage = () => {
-      linkto = '/manage';
-    }
-    const onLinkPhoto = () => {
-      linkto = '/photo';
-    }
-    const onLinkStat = () => {
-      linkto = '/stat';
-    }
-    switch(linkto) {
-      case '/main':
-        return (<Redirect to= '/main' />);
+    switch(this.state.linkto) {
       case '/course':
         return (<Redirect to= '/course' />);
-      case '/manage':
-        return (<Redirect to= '/manage' />);
+      case '/main':
+        return (<Redirect to= '/main' />);
       case '/photo':
         return (<Redirect to= '/photo' />);
       case '/stat':
@@ -61,10 +79,17 @@ class ManagePage extends Component {
       default:
         return (
           <div>
-            <ManageDashBoard />
+            <ManageDashBoard
+              onLinkMain = {LinkMain}
+              onLinkCourse = {(e) => LinkCourse(e)}
+              onLinkManage = {(e) => LinkManage(e)}
+              onLinkPhoto = {(e) => LinkPhoto(e)}
+              onLinkStat = {(e) => LinkStat(e)}
+            />
           </div> 
         );
     }
+
   }
 }
 

@@ -20,6 +20,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Course_timeLine from './course_timeLine';
 import Announce from './announce';
 import Course_stat from './course_stat';
+import Course_superuser from './course_superuser';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -121,15 +122,202 @@ export default function CourseDashboard({
   onLinkPhoto,
   onLinkStat,
   }) {
+  const teststor = {
+    user: {
+      username: "test01", //ID
+      is_student: false,
+      name: "test01", //Name
+      student_number: "0101-01010",
+      school: "SNU",
+      major: "CSE",
+    },
+    course: {
+      coursename: "SWPP",
+      superuser: [
+        {
+          username: "test00", //ID
+          is_student: false,
+          name: "test00", //Name
+          student_number: "0000-00000",
+          school: "SNU",
+          major: "CSE",         
+        }
+      ],
+      participants: [    
+          {
+            username: "test01", //ID
+            is_student: true,
+            name: "test01", //Name
+            student_number: "0101-01010",
+            school: "SNU",
+            major: "CSE",
+          },
+          {
+            username: "test02", //ID
+            is_student: true,
+            name: "test02", //Name
+            student_number: "0202-02020",
+            school: "SNU",
+            major: "CSE",
+          },
+          {
+            username: "test03", //ID
+            is_student: true,
+            name: "test03", //Name
+            student_number: "0303-03030",
+            school: "SNU",
+            major: "CSE",
+          },
+          {
+            username: "test04", //ID
+            is_student: true,
+            name: "test04", //Name
+            student_number: "0404-04040",
+            school: "SNU",
+            major: "CSE",
+          },  
+      ],
+    },
+    //top:selected, bottom:courses
+    courses: [
+      {
+        coursename: "SWPP",
+        superuser:"prof_1",
+        participants: [
 
-  const listitems = [
-    {id:0, itemname:'Main'},
-    {id:1, itemname:'Courses'},
-    {id:2, itemname:'SWPP'},
-    {id:3, itemname:'AL'},
-    {id:4, itemname:'CA'},
-    {id:5, itemname:'LD'},
-  ]
+        ],
+      },
+      {
+        coursename: "AL",
+        superuser:"prof_2",
+        participants: [
+
+        ],
+      },
+      {
+        coursename: "CA",
+        superuser:"prof_3",
+        participants: [
+
+        ],
+      },
+    ],    
+    requsers: [
+      {
+        username:"test01",
+        name:"test01",
+        student_number:"0101-01010",
+        school: "SNU",
+        major: "CSE",
+      },
+      {
+        username:"test02",
+        name:"test02",
+        student_number:"0202-02020",
+        school: "SNU",
+        major: "CSE",
+      },
+      {
+        username:"test03",
+        name:"test03",
+        student_number:"0303-03030",
+        school: "SNU",
+        major: "CSE",
+      },
+      {
+        username:"test04",
+        name:"test04",
+        student_number:"0404-04040",
+        school: "SNU",
+        major: "CSE",
+      },                  
+    ],
+    photoes: [
+      {
+        coursename:"SWPP",
+        photo:"photo_1",
+        created:"03.03",
+        isChecked: true,
+        isUploaded: true,
+      },
+      {
+        coursename:"AL",
+        photo:"photo_2",
+        created:"03.06",
+        isChecked: true,
+        isUploaded: true,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_3",
+        created:"03.06",
+        isChecked: false,
+        isUploaded: true,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_4",
+        created:"03.10",
+        isChecked: false,
+        isUploaded: true,        
+      },
+      {
+        coursename:"AL",
+        photo:"photo_5",
+        created:"03.13",
+        isChecked: false,
+        isUploaded: false,        
+      },
+      {
+        coursename:"SWPP",
+        photo:"photo_6",
+        created:"03.13",
+        isChecked: false,
+        isUploaded: false,        
+      },
+    ],
+    tag: [
+      {
+        name:"test01",
+        coursename:"SWPP",
+        created:"03.03",
+        x:123,
+        y:123,
+      },
+    ],
+    stat: [
+      {
+        coursename: "SWPP",
+        attendance: true,
+        created:"03.03", 
+      },
+      {
+        coursename: "AL",
+        attendance: true,
+        created:"03.06", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: true,
+        created:"03.06", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: true,
+        created:"03.06", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: false,
+        created:"03.13", 
+      },
+      {
+        coursename: "SWPP",
+        attendance: false,
+        created:"03.13", 
+      },                        
+    ]    
+  };
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -157,7 +345,9 @@ export default function CourseDashboard({
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Classtagram
+            {"Classtagram_"+teststor.course.coursename
+            //teststor 대신 백엔드 리스폰스를 넣으면 원하는 결과 출력 가능
+            }
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={10} color="secondary">
@@ -180,13 +370,21 @@ export default function CourseDashboard({
         </div>
         <Divider />
         <List>
-          {listitems.map( (item) => (
+          <div>
+            <ListItem button onClick={onLinkMain}>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary= "Main" />
+            </ListItem>
+          </div>
+          {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={item.itemname==='Main' ? onLinkMain : onLinkCourse}>
+              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
                 <ListItemIcon>
-                  {item.itemname === 'Main' ? <PeopleIcon /> : <DashboardIcon />}
+                  <DashboardIcon />
                 </ListItemIcon>
-                <ListItemText primary= {item.itemname} />
+                <ListItemText primary= {item.coursename} />
               </ListItem>
             </div>             
           ))}
@@ -199,7 +397,10 @@ export default function CourseDashboard({
             {/* Recent Orders */}
             <Grid item xs={6}>
               <Paper className={fixedHeightPaper_full}>
-                <Course_timeLine />
+                <Course_timeLine
+                  onLinkPhoto_timeline = {(e) => onLinkPhoto(e)}
+                  teststor={teststor}
+                />
               </Paper>
             </Grid>
             <Grid container spacing={2} item xs={6} >
@@ -211,8 +412,20 @@ export default function CourseDashboard({
               {/* Recent Deposits */}
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
-                  <div> 
-                    <Course_stat />
+                  <div>
+                  {teststor.user.is_student?
+                    <Course_stat
+                      teststor={teststor}
+                    />
+                    :
+                    <Course_superuser
+                      teststor={teststor}
+                      onLinkManage_superuser = {(e) => onLinkManage(e)}
+                      onLinkStat_superuser = {(e) => onLinkStat(e)}
+                    />
+                    //user가 instructor이면, manage 및 statistic page로 갈 수 있는 link button
+                    //아니면, 간단한 statistic(본인)                    
+                  }
                   </div>
                 </Paper>
               </Grid>
