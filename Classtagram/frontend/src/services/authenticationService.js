@@ -41,10 +41,12 @@ export const loginUserService = (request) => {
 //backend에서 받아오기만 하는 액션이라 적어도 POST는 아닐 것 같음
 //TBD
 export const mainInfoService = (request) => {
-  const MAININFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/username'; //username
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
+  const MAININFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/users/'.concat(user.user); //username
 
   const parameters = {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },

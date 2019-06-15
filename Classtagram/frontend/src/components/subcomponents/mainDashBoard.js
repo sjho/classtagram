@@ -115,6 +115,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MainDashboard({
+  courses,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
@@ -210,6 +211,9 @@ export default function MainDashboard({
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
+  console.log(listitems);
+  console.log(list);
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -265,7 +269,8 @@ export default function MainDashboard({
                 <ListItemText primary= {item.coursename} />
               </ListItem>
             </div>             
-          ))}
+          ))
+          }
         </List>
       </Drawer>
       <main className={classes.content}>

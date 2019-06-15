@@ -32,11 +32,18 @@ class MainPage extends Component {
     this.state = initialState;
     this.state.username = localStorage.getItem('user').username;
     this.props.dispatch(mainInfoAction(this.state.username));
-
   }
 
+
   render() {
-    let isSuccess, message;
+    let courses;
+
+  
+    console.log(this.props.response.main);
+    if (this.props.response.main.hasOwnProperty('response')) {
+      courses = this.props.response.main.response.courses;
+      console.log(courses);
+    }
 
     const user = JSON.parse(localStorage.getItem('user'))
     const onHandleLogout = () => {
