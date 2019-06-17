@@ -12,6 +12,7 @@ urlpatterns = [
     path('requests/', views.RequestList.as_view()),
     path('requests/<int:pk>', views.RequestDetail.as_view()),
     path('photos/', views.PhotoList.as_view()),
+    path('photos/course/<int:pk>', views.PhotoCourseList.as_view()),
     path('photos/<int:pk>', views.PhotoDetail.as_view()),
     path('tags/', views.TagList.as_view()),
     path('tags/<int:pk>', views.TagDetail.as_view()),

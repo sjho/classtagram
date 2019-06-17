@@ -22,6 +22,36 @@ export const mainInfoAction = (user) => {
   }
 };
 
+export const courseInfoAction = (course) => {
+  return {
+    type : types.COURSE_INFO,
+    course
+  }
+}
+
+export const photoCourseInfoAction = (course) => {
+  return {
+    type : types.PHOTO_COURSE_INFO,
+    course
+  }
+}
+
+export const photoInfoAction = (photo) => {
+  return {
+    type : types.PHOTO_INFO,
+    photo
+  }
+}
+
+export const photoPostAction = (course, file) => {
+  return {
+    type : types.PHOTO_POST,
+    photo : {
+      course : course.id,
+      photo : file
+    },
+  }
+}
 
 export const logoutUserAction = (user) => {
   return {

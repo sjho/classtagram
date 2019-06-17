@@ -39,10 +39,8 @@ export const loginUserService = (request) => {
 };
 
 //backend에서 받아오기만 하는 액션이라 적어도 POST는 아닐 것 같음
-//TBD
 export const mainInfoService = (request) => {
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
   const MAININFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/users/'.concat(user.user); //username
 
   const parameters = {
@@ -54,6 +52,91 @@ export const mainInfoService = (request) => {
   };
 
   return fetch(MAININFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const courseInfoService = (request) => {
+  const course = request;
+  const COURSEINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/courses/'.concat(course); //coursenum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(COURSEINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const photoPostService = (request) => {
+  const PHOTOPOST_API_ENDPOINT = 'http://127.0.0.1:8000/backend/photos/';
+  let formData = new FormData();
+  formData.append('course',request.course);
+  formData.append('photo',request.photo);
+  console.log(formData.get('photo'));
+
+  const parameters = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+    },
+    body: formData
+  };
+
+  return fetch(PHOTOPOST_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const photoCourseInfoService = (request) => {
+  const course = request;
+
+  const PHOTOCOURSEINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/photos/course/'.concat(course); //coursenum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(PHOTOCOURSEINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const photoInfoService = (request) => {
+  const photo = request;
+  const PHOTOINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/photos/'.concat(photo); //coursenum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(PHOTOINFO_API_ENDPOINT, parameters)
     .then(response => {
       return response.json();
     })

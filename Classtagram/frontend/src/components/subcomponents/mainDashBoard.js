@@ -115,13 +115,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MainDashboard({
-  courses,
+  data,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
   }) {
+    
   const teststor = {
     user: {
       username: "test01", //ID
@@ -211,8 +212,12 @@ export default function MainDashboard({
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
-  console.log(listitems);
-  console.log(list);
+  console.log(data);
+  
+  if (data != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+  }
 
   return (
     <div className={classes.root}>
@@ -262,7 +267,7 @@ export default function MainDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>

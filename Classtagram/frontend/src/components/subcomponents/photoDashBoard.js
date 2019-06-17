@@ -113,6 +113,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PhotoDashboard({
+  data,
+  course,
+  photo,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
@@ -326,6 +329,13 @@ export default function PhotoDashboard({
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const fixedHeightPaper_timeLine = clsx(classes.paper, classes.fixedHeight_timeLine);
 
+  if (data != undefined && course != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.course = course;
+    teststor.photo = photo;
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -374,7 +384,7 @@ export default function PhotoDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
@@ -387,7 +397,7 @@ export default function PhotoDashboard({
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Photo />
+          <Photo teststor={teststor}/>
         </Container>
       </main>
     </div>

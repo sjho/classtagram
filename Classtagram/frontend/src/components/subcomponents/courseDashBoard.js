@@ -116,11 +116,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CourseDashboard({
+  data,
+  course,
+  photo,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onUpload
   }) {
   const teststor = {
     user: {
@@ -330,6 +334,16 @@ export default function CourseDashboard({
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
+  if (data != undefined && course != undefined && photo != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.course = course;
+    teststor.photoes = photo;
+    if (!teststor.photoes.includes({coursename:""})) teststor.photoes.push({coursename:""})
+    teststor.photoes.reverse();
+  }
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -380,7 +394,7 @@ export default function CourseDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
@@ -399,6 +413,7 @@ export default function CourseDashboard({
               <Paper className={fixedHeightPaper_full}>
                 <Course_timeLine
                   onLinkPhoto_timeline = {(e) => onLinkPhoto(e)}
+                  onUpload_timeline = {(e) => onUpload(e)}
                   teststor={teststor}
                 />
               </Paper>

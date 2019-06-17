@@ -1,5 +1,5 @@
 import { takeEvery, all, take, put, call, fork } from 'redux-saga/effects'
-import { registerSaga, loginSaga, logoutSaga, mainInfoSaga } from './authenticationSaga';
+import * as saga from './authenticationSaga';
 
 import * as types from '../actions';
 
@@ -9,7 +9,7 @@ export function* watchRegisterAuthentication() {
     // 유저 정보를 받아옵니다.
     const { user } = yield take(types.REGISTER_USER);
     // registerSaga를 call하고 user정보를 보냅니다.
-    yield call(registerSaga, user);
+    yield call(saga.registerSaga, user);
   }
 }
 
@@ -18,7 +18,7 @@ export function* watchLoginAuthentication() {
     // 유저 정보를 받아옵니다.
     const { user } = yield take(types.LOGIN_USER);
     // loginSaga를 call하고 user정보를 보냅니다.
-    yield call(loginSaga, user);
+    yield call(saga.loginSaga, user);
   }
 }
 
@@ -27,7 +27,7 @@ export function* watchMainInfoAuthentication() {
     // 유저 정보를 받아옵니다.
     const { user } = yield take(types.MAIN_INFO);
     // loginSaga를 call하고 user정보를 보냅니다.
-    yield call(mainInfoSaga, user);
+    yield call(saga.mainInfoSaga, user);
   }
 }
 
@@ -36,7 +36,44 @@ export function* watchLogoutAuthentication() {
     // 유저 정보를 받아옵니다.
     const { user } = yield take(types.LOGOUT_USER);
     // loginSaga를 call하고 user정보를 보냅니다.
-    yield call(logoutSaga, user);
+    yield call(saga.logoutSaga, user);
   }
 }
 
+export function* watchCourseInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { course } = yield take(types.COURSE_INFO);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.courseInfoSaga, course);
+  }
+}
+
+export function* watchPhotoPostAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { photo } = yield take(types.PHOTO_POST);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.photoPostSaga, photo);
+  }
+}
+
+export function* watchPhotoInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { photo } = yield take(types.PHOTO_INFO);
+    console.log(photo);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.photoInfoSaga, photo);
+  }
+}
+
+export function* watchPhotoCourseInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { course } = yield take(types.PHOTO_COURSE_INFO);
+    console.log(course);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.photoCourseInfoSaga, course);
+  }
+}

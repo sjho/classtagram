@@ -28,8 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 # 강의 등록 시리얼라이저
 class CourseSerializer(serializers.ModelSerializer):
-	superuser = serializers.ReadOnlyField(source='superuser.id')
-	users = UserSerializer(read_only=True, many=True)
+#	users = UserSerializer(read_only=True, many=True)
 
 	class Meta:
 		model = Course
@@ -37,8 +36,6 @@ class CourseSerializer(serializers.ModelSerializer):
 
 # 강의 등록 요청 시리얼라이저
 class RequestSerializer(serializers.ModelSerializer):
-	user = serializers.ReadOnlyField(source='user.id')
-	course = serializers.ReadOnlyField(source='course.id')
 
 	class Meta:
 		model = Request
@@ -46,7 +43,6 @@ class RequestSerializer(serializers.ModelSerializer):
 
 # 사진 시리얼라이저
 class PhotoSerializer(serializers.ModelSerializer):
-	course = serializers.ReadOnlyField(source='course.id')
 
 	class Meta:
 		model = Photo
@@ -54,9 +50,6 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 # 태그 시리얼라이저
 class TagSerializer(serializers.ModelSerializer):
-	user = serializers.ReadOnlyField(source='user.id')
-	course = serializers.ReadOnlyField(source='course.id')
-	photo = serializers.ReadOnlyField(source='photo.id')
 
 	class Meta:
 		model = Tag

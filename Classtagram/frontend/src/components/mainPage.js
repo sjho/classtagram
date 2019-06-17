@@ -36,13 +36,13 @@ class MainPage extends Component {
 
 
   render() {
-    let courses;
+    let data;
 
   
     console.log(this.props.response.main);
     if (this.props.response.main.hasOwnProperty('response')) {
-      courses = this.props.response.main.response.courses;
-      console.log(courses);
+      data = this.props.response.main.response;
+      console.log(data);
     }
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -64,9 +64,11 @@ class MainPage extends Component {
       })
       console.log("LinkMain Worked")
     };
-    const LinkCourse = (coursename) => {
-      console.log(coursename);
+    const LinkCourse = (courseid) => {
+      
       //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
+      localStorage.setItem('course', courseid);
+      console.log(courseid);
       this.setState({
         linkto : '/course'
       })
@@ -106,6 +108,7 @@ class MainPage extends Component {
         return (
           <div>
             <MainDashBoard
+              data = {data}
               onLinkMain = {() => LinkMain()}
               onLinkCourse = {(e) => LinkCourse(e)}
               onLinkManage = {(e) => LinkManage(e)}

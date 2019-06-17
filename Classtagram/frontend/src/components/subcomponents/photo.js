@@ -25,14 +25,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Photo() {
+export default function Photo({teststor}) {
   const classes = useStyles();
   // const classes = useStyles();
   // const isStudent = true;//props.props.isStudent
+
+  let url = "";
+  if (teststor.photo != undefined) {
+    url = "http://127.0.0.1:8000";
+    url = url.concat(teststor.photo.photo);
+    console.log(url);
+  }
+
   return (
     <div>
-      <h2>03.02(월)</h2>
-      <Paper className = {classes.paper} />
+      <h2>{teststor.photo != undefined ? teststor.photo.created.substring(0, 10) : 'Loading'}</h2>
+      <Paper className = {classes.paper}>
+          {(teststor.photo != undefined) && <img src={url} />}
+      </Paper>
       <Divider className = {classes.divider}  />
         <h3> Alert </h3>
     </div>

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-//import { logoutUserAction, mainInfoAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, courseInfoAction, photoPostAction, photoCourseInfoAction} from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -15,6 +15,7 @@ import './Styles.css';
 
 export const initialState = {
   username: "",
+  courseid: "",
   password: "",
   pwconfirm: "",
   is_student: true,
@@ -30,17 +31,58 @@ class CoursePage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.state.username = localStorage.getItem('user').username;
+    this.state.courseid = localStorage.getItem('course');
+    this.props.dispatch(mainInfoAction(this.state.username));
+    this.props.dispatch(courseInfoAction(this.state.courseid));
+    this.props.dispatch(photoCourseInfoAction(this.state.courseid));
   }
+
   render() {
+    let data, course, photo;
+
+  
+    console.log(this.props.response);
+    if (this.props.response.main.hasOwnProperty('response')) {
+      data = this.props.response.main.response;
+    }
+
+    if (this.props.response.course.hasOwnProperty('response')) {
+      course = this.props.response.course.response;
+      console.log(course);
+    }
+
+    if (this.props.response.photocourse.hasOwnProperty('response')) {
+      photo = this.props.response.photocourse.response;
+      console.log(photo);
+    }
+
+    if (this.state.hasOwnProperty('imagePreviewUrl') && this.state.imagePreviewUrl != undefined) {
+      this.props.dispatch(photoPostAction(course, this.state.file));
+      this.setState({ file: undefined, imagePreviewUrl: undefined });
+      console.log(this.state);
+    }
+
+    if (this.props.response.photopost.hasOwnProperty('response')) {
+      this.props.dispatch(photoCourseInfoAction(this.state.courseid));
+      this.props.response.photopost = undefined;
+      console.log(photo);
+    }
+
     const LinkMain = () => {
       this.setState({
         linkto : '/main'
       })
 //      console.log("LinkMain Worked")
     };
-    const LinkCourse = (coursename) => {
-      console.log(coursename);
-      //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
+    const LinkCourse = (courseid) => {
+      localStorage.setItem('course', courseid);
+      this.setState({'courseid' : courseid});
+      this.props.response.course = undefined;
+      this.props.response.photocourse = undefined;
+      this.props.dispatch(courseInfoAction(courseid));
+      this.props.dispatch(photoCourseInfoAction(courseid));
+      console.log(courseid);
       this.setState({
         linkto : '/course'
       })
@@ -50,7 +92,8 @@ class CoursePage extends Component {
         linkto : '/manage'
       })
     };
-    const LinkPhoto = (coursename, created) => {
+    const LinkPhoto = (photoid) => {
+      localStorage.setItem('photo', photoid);
       this.setState({
         linkto : '/photo'
       })
@@ -64,7 +107,20 @@ class CoursePage extends Component {
       this.setState({
         linkto: '/create'
       })
-    }    
+    }  
+    const PhotoUpload = (e) => {
+      e.preventDefault();
+      let reader = new FileReader();
+      let file = e.target.files[0];
+      reader.onloadend = () => {
+        this.setState({ file: file, imagePreviewUrl: reader.result });
+      };
+      reader.readAsDataURL(file);
+    };
+    
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+
     switch(this.state.linkto) {
       case '/main':
         return (<Redirect to= '/main' />);
@@ -78,11 +134,15 @@ class CoursePage extends Component {
         return (
           <div>
             <CourseDashBoard
+              data = {data}
+              course = {course}
+              photo = {photo}
               onLinkMain = {LinkMain}
               onLinkCourse = {(e) => LinkCourse(e)}
               onLinkManage = {(e) => LinkManage(e)}
               onLinkPhoto = {(e) => LinkPhoto(e)}
               onLinkStat = {(e) => LinkStat(e)}
+              onUpload = {(e) => PhotoUpload(e)}
             />
           </div> 
         );

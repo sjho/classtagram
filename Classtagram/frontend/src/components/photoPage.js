@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-//import { logoutUserAction, mainInfoAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, courseInfoAction, photoInfoAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -30,8 +30,31 @@ class PhotoPage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+    this.state.username = localStorage.getItem('user').username;
+    this.state.courseid = localStorage.getItem('course');
+    this.state.photoid = localStorage.getItem('photo');
+    console.log(this.state.photoid);
+    this.props.dispatch(mainInfoAction(this.state.username));
+    this.props.dispatch(courseInfoAction(this.state.courseid));
+    this.props.dispatch(photoInfoAction(this.state.photoid));
   }
   render() {
+    let data, course, photo;
+
+    console.log(this.props.response);
+    if (this.props.response.main.hasOwnProperty('response')) {
+      data = this.props.response.main.response;
+    }
+
+    if (this.props.response.course.hasOwnProperty('response')) {
+      course = this.props.response.course.response;
+      console.log(course);
+    }
+
+    if (this.props.response.photo.hasOwnProperty('response')) {
+      photo = this.props.response.photo.response;
+      console.log(photo);
+    }
 
     let linkto = "";
     const LinkMain = () => {
@@ -40,9 +63,11 @@ class PhotoPage extends Component {
       })
 //      console.log("LinkMain Worked")
     };
-    const LinkCourse = (coursename) => {
-      console.log(coursename);
+    const LinkCourse = (courseid) => {
+      
       //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
+      localStorage.setItem('course', courseid);
+      console.log(courseid);
       this.setState({
         linkto : '/course'
       })
@@ -80,6 +105,9 @@ class PhotoPage extends Component {
         return (
           <div>
             <PhotoDashBoard
+              data = {data}
+              course = {course}
+              photo = {photo}
               onLinkMain = {LinkMain}
               onLinkCourse = {(e) => LinkCourse(e)}
               onLinkManage = {(e) => LinkManage(e)}

@@ -72,7 +72,7 @@ class Request(models.Model):
 # 사진 모델
 class Photo(models.Model):
 	course = models.ForeignKey(Course, related_name='photos', on_delete=models.CASCADE)
-	photo = models.ImageField()
+	photo = models.ImageField(null=True, upload_to='media')
 	created = models.DateTimeField(auto_now_add=True)
 
 # 태그 모델

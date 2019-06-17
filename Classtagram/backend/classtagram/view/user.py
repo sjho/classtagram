@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from classtagram.models import User
@@ -7,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import login
+from django.http import Http404
 import json
 #from django.contrib.auth.models import User
 #from rest_auth.registration.views import RegisterView
@@ -43,7 +45,7 @@ class UserDetail(APIView):
             obj = User.objects.get(pk=pk)
             self.check_object_permissions(self.request, obj)
             return obj
-        except Meeting.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
    
     def get(self, request, pk, format=None):
