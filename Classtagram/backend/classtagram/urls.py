@@ -15,6 +15,7 @@ urlpatterns = [
     path('photos/course/<int:pk>', views.PhotoCourseList.as_view()),
     path('photos/<int:pk>', views.PhotoDetail.as_view()),
     path('tags/', views.TagList.as_view()),
+    path('tags/photo/<int:pk>', views.TagPhotoList.as_view()),
     path('tags/<int:pk>', views.TagDetail.as_view()),
 ]
 

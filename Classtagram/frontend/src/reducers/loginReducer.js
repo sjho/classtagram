@@ -8,7 +8,6 @@ export default function(state = initialState, action) {
   switch(action.type) {
     case types.LOGIN_USER_SUCCESS:
     	localStorage.setItem('user', JSON.stringify(action.response));
-      console.log(localStorage.getItem('user'));
       return {...state, response};
     	/*return Object.assign({}, {
       		isLoggedIn: true,

@@ -1,12 +1,12 @@
 import * as types from '../actions';
-import { initialState } from '../components/mainPage'
+import { initialState } from '../components/registerPage'
 import { takeEvery, all, take, put, call, fork } from 'redux-saga/effects'
 
 export default function(state = initialState, action) {
   const response = action.response;
 
   switch(action.type) {
-    case types.COURSE_INFO_SUCCESS:
+    case types.TAG_POST_SUCCESS:
       return {response};
 
     //	return Object.assign({}, state, response.info, {
@@ -22,7 +22,7 @@ export default function(state = initialState, action) {
      //    success: ...
      //    message: ...
      //  }
-    case types.COURSE_INFO_ERROR:
+    case types.TAG_POST_ERROR:
       return {response};
 
     default:

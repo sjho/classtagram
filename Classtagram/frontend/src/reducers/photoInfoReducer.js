@@ -7,7 +7,6 @@ export default function(state = initialState, action) {
 
   switch(action.type) {
     case types.PHOTO_INFO_SUCCESS:
-      console.log(response);
       return {response};
 
     //	return Object.assign({}, state, response.info, {

@@ -42,31 +42,26 @@ class CoursePage extends Component {
     let data, course, photo;
 
   
-    console.log(this.props.response);
     if (this.props.response.main.hasOwnProperty('response')) {
       data = this.props.response.main.response;
     }
 
     if (this.props.response.course.hasOwnProperty('response')) {
       course = this.props.response.course.response;
-      console.log(course);
     }
 
     if (this.props.response.photocourse.hasOwnProperty('response')) {
       photo = this.props.response.photocourse.response;
-      console.log(photo);
     }
 
     if (this.state.hasOwnProperty('imagePreviewUrl') && this.state.imagePreviewUrl != undefined) {
       this.props.dispatch(photoPostAction(course, this.state.file));
       this.setState({ file: undefined, imagePreviewUrl: undefined });
-      console.log(this.state);
     }
 
     if (this.props.response.photopost.hasOwnProperty('response')) {
       this.props.dispatch(photoCourseInfoAction(this.state.courseid));
       this.props.response.photopost = undefined;
-      console.log(photo);
     }
 
     const LinkMain = () => {
@@ -82,7 +77,6 @@ class CoursePage extends Component {
       this.props.response.photocourse = undefined;
       this.props.dispatch(courseInfoAction(courseid));
       this.props.dispatch(photoCourseInfoAction(courseid));
-      console.log(courseid);
       this.setState({
         linkto : '/course'
       })

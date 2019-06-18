@@ -45,7 +45,6 @@ export function* logoutSaga(payload) {
 export function* courseInfoSaga(payload) {
   try {
     const response = yield call(services.courseInfoService, payload);
-    console.log(response)
     yield put({ type: types.COURSE_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.COURSE_INFO_ERROR, error })
@@ -55,7 +54,6 @@ export function* courseInfoSaga(payload) {
 export function* photoPostSaga(payload) {
   try {
     const response = yield call(services.photoPostService, payload);
-    console.log(response)
     yield put({ type: types.PHOTO_POST_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.PHOTO_POST_ERROR, error })
@@ -65,7 +63,6 @@ export function* photoPostSaga(payload) {
 export function* photoInfoSaga(payload) {
   try {
     const response = yield call(services.photoInfoService, payload);
-    console.log(response)
     yield put({ type: types.PHOTO_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.PHOTO_INFO_ERROR, error })
@@ -75,9 +72,36 @@ export function* photoInfoSaga(payload) {
 export function* photoCourseInfoSaga(payload) {
   try {
     const response = yield call(services.photoCourseInfoService, payload);
-    console.log(response)
     yield put({ type: types.PHOTO_COURSE_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.PHOTO_COURSE_INFO_ERROR, error })
+  }
+}
+
+
+export function* tagPhotoInfoSaga(payload) {
+  try {
+    const response = yield call(services.tagPhotoInfoService, payload);
+    yield put({ type: types.TAG_PHOTO_INFO_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.TAG_PHOTO_INFO_ERROR, error })
+  }
+}
+
+export function* tagPostSaga(payload) {
+  try {
+    const response = yield call(services.tagPostService, payload);
+    yield put({ type: types.TAG_POST_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.TAG_POST_ERROR, error })
+  }
+}
+
+export function* tagPutSaga(payload) {
+  try {
+    const response = yield call(services.tagPutService, payload);
+    yield put({ type: types.TAG_PUT_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.TAG_PUT_ERROR, error })
   }
 }

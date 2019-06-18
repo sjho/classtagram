@@ -53,6 +53,40 @@ export const photoPostAction = (course, file) => {
   }
 }
 
+export const tagPostAction = (user, course, photo, x, y) => {
+  return {
+    type : types.TAG_POST,
+    tag : {
+      user : user.id,
+      course : course.id,
+      photo : photo.id,
+      x,
+      y
+    },
+  }
+}
+
+export const tagPutAction = (tag, user, course, photo, x, y) => {
+  return {
+    type : types.TAG_PUT,
+    tag,
+    info : {
+      user : user.id,
+      course : course.id,
+      photo : photo.id,
+      x,
+      y
+    },
+  }
+}
+
+export const tagPhotoInfoAction = (photo) => {
+  return {
+    type : types.TAG_PHOTO_INFO,
+    photo
+  }
+}
+
 export const logoutUserAction = (user) => {
   return {
     type: types.LOGOUT_USER,

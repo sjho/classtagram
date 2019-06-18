@@ -104,6 +104,7 @@ export const photoPostService = (request) => {
     });
 };
 
+
 export const photoCourseInfoService = (request) => {
   const course = request;
 
@@ -137,6 +138,70 @@ export const photoInfoService = (request) => {
   };
 
   return fetch(PHOTOINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+
+export const tagPhotoInfoService = (request) => {
+  const photo = request;
+
+  const TAGPHOTOINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/tags/photo/'.concat(photo); //photonum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(TAGPHOTOINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+
+export const tagPostService = (request) => {
+  const TAGPOST_API_ENDPOINT = 'http://127.0.0.1:8000/backend/tags/';
+
+  const parameters = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(request)
+  };
+
+  return fetch(TAGPOST_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const tagPutService = (request) => {
+
+  const TAGPOST_API_ENDPOINT = 'http://127.0.0.1:8000/backend/tags/'.concat(request.tag);
+
+  const parameters = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(request.info)
+  };
+
+  return fetch(TAGPOST_API_ENDPOINT, parameters)
     .then(response => {
       return response.json();
     })

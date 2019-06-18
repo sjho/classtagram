@@ -39,10 +39,8 @@ class MainPage extends Component {
     let data;
 
   
-    console.log(this.props.response.main);
     if (this.props.response.main.hasOwnProperty('response')) {
       data = this.props.response.main.response;
-      console.log(data);
     }
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -62,13 +60,11 @@ class MainPage extends Component {
       this.setState({
         linkto : '/main'
       })
-      console.log("LinkMain Worked")
     };
     const LinkCourse = (courseid) => {
       
       //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
       localStorage.setItem('course', courseid);
-      console.log(courseid);
       this.setState({
         linkto : '/course'
       })

@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = User
-		fields = ('username', 'is_student', 'name', 'student_number', 'school', 'major', 'courses')
+		fields = ('id','username', 'is_student', 'name', 'student_number', 'school', 'major', 'courses')
 		read_only_fields = ('username', 'is_student',)
 
 # 강의 등록 시리얼라이저
@@ -54,3 +54,12 @@ class TagSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Tag
 		fields = ('id', 'user', 'course', 'photo', 'x', 'y')
+
+	def validate(self, data):
+		for t in Tag.objects.all():
+			if (self.instance and self.instance.id == t.id) :
+				continue
+			if not (data.get('user').id == t.user.id and data.get('photo').id == t.photo.id):
+				continue
+			raise serializers.ValidationError("Already checked")
+		return data

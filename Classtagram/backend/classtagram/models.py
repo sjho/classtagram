@@ -77,8 +77,8 @@ class Photo(models.Model):
 
 # 태그 모델
 class Tag(models.Model):
-	user = models.ForeignKey(User, related_name='tags', on_delete=models.CASCADE)
-	course = models.ForeignKey(Course, related_name='tags', on_delete=models.CASCADE)
-	photo= models.ForeignKey(Photo, related_name='tags', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, related_name='tags_user', on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, related_name='tags_course', on_delete=models.CASCADE)
+	photo= models.ForeignKey(Photo, related_name='tags_photo', on_delete=models.CASCADE)
 	x = models.FloatField()
 	y = models.FloatField()

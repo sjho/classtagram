@@ -62,7 +62,6 @@ export function* watchPhotoInfoAuthentication() {
   while(true){
     // 유저 정보를 받아옵니다.
     const { photo } = yield take(types.PHOTO_INFO);
-    console.log(photo);
     // loginSaga를 call하고 user정보를 보냅니다.
     yield call(saga.photoInfoSaga, photo);
   }
@@ -72,8 +71,34 @@ export function* watchPhotoCourseInfoAuthentication() {
   while(true){
     // 유저 정보를 받아옵니다.
     const { course } = yield take(types.PHOTO_COURSE_INFO);
-    console.log(course);
     // loginSaga를 call하고 user정보를 보냅니다.
     yield call(saga.photoCourseInfoSaga, course);
+  }
+}
+
+export function* watchTagPhotoInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { photo } = yield take(types.TAG_PHOTO_INFO);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.tagPhotoInfoSaga, photo);
+  }
+}
+
+export function* watchTagPostAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { tag } = yield take(types.TAG_POST);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.tagPostSaga, tag);
+  }
+}
+
+export function* watchTagPutAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { tag, info } = yield take(types.TAG_PUT);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.tagPutSaga, {tag, info});
   }
 }
