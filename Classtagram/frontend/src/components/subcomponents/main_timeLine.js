@@ -15,7 +15,11 @@ export default function Main_timeLine({
   teststor,
   onLinkPhoto_timeLine,
 }) {
-  console.log(teststor);
+  let course = teststor.courses;
+  let link = "http://127.0.0.1:8000";
+  console.log(course);
+  console.log(teststor.photoes);
+
     return (
 
       <div>
@@ -26,8 +30,15 @@ export default function Main_timeLine({
           <Timeline>
             {teststor.photoes.map( (item) => (
               <div>
-                <Event interval={item.created} title={item.coursename}>
-                  <Link onClick = {() => onLinkPhoto_timeLine(item.coursename, item.created)}>{item.photo}</Link>
+                <Event 
+                interval={item.created.substring(0, 10)} 
+                title={
+                  course.find(function(element) {
+                    return element.id = item.course;
+                  }).coursename}>
+                  <Link onClick = {() => onLinkPhoto_timeLine(item)}>
+                    <img src={link.concat(item.photo)}/>
+                  </Link>
                 </Event>
               </div>             
             ))}

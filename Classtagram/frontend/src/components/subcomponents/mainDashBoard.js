@@ -116,6 +116,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function MainDashboard({
   data,
+  photodata,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
@@ -157,6 +158,7 @@ export default function MainDashboard({
     ],
     photoes: [
       {
+        course:1,
         coursename:"SWPP",
         photo:"photo_1",
         created:"03.03",
@@ -164,39 +166,12 @@ export default function MainDashboard({
         isUploaded: true,
       },
       {
+        course:1,
         coursename:"AL",
         photo:"photo_2",
         created:"03.06",
         isChecked: true,
         isUploaded: true,        
-      },
-      {
-        coursename:"SWPP",
-        photo:"photo_3",
-        created:"03.06",
-        isChecked: false,
-        isUploaded: true,        
-      },
-      {
-        coursename:"SWPP",
-        photo:"photo_4",
-        created:"03.10",
-        isChecked: false,
-        isUploaded: true,        
-      },
-      {
-        coursename:"AL",
-        photo:"photo_5",
-        created:"03.13",
-        isChecked: false,
-        isUploaded: false,        
-      },
-      {
-        coursename:"SWPP",
-        photo:"photo_6",
-        created:"03.13",
-        isChecked: false,
-        isUploaded: false,        
       },
     ],
   };
@@ -211,12 +186,12 @@ export default function MainDashboard({
   };
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
-
-  console.log(data);
   
-  if (data != undefined) {
+  if (data != undefined && photodata != undefined) {
     teststor.courses = data.courses;
     teststor.user = data;
+    teststor.photoes = photodata.slice();
+    teststor.photoes.reverse();
   }
 
   return (

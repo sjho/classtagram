@@ -39,7 +39,7 @@ export const loginUserService = (request) => {
 };
 
 //backend에서 받아오기만 하는 액션이라 적어도 POST는 아닐 것 같음
-export const mainInfoService = (request) => {
+export const mainInfoService = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const MAININFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/users/'.concat(user.user); //username
 
@@ -47,8 +47,7 @@ export const mainInfoService = (request) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(request)
+    }
   };
 
   return fetch(MAININFO_API_ENDPOINT, parameters)
@@ -118,6 +117,27 @@ export const photoCourseInfoService = (request) => {
   };
 
   return fetch(PHOTOCOURSEINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const photoUserInfoService = (request) => {
+  const user = request;
+
+  const PHOTOUSERINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/photos/user/'.concat(user); //coursenum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(PHOTOUSERINFO_API_ENDPOINT, parameters)
     .then(response => {
       return response.json();
     })

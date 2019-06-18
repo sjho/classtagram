@@ -25,9 +25,9 @@ export function* watchLoginAuthentication() {
 export function* watchMainInfoAuthentication() {
   while(true){
     // 유저 정보를 받아옵니다.
-    const { user } = yield take(types.MAIN_INFO);
+    yield take(types.MAIN_INFO);
     // loginSaga를 call하고 user정보를 보냅니다.
-    yield call(saga.mainInfoSaga, user);
+    yield call(saga.mainInfoSaga);
   }
 }
 
@@ -73,6 +73,15 @@ export function* watchPhotoCourseInfoAuthentication() {
     const { course } = yield take(types.PHOTO_COURSE_INFO);
     // loginSaga를 call하고 user정보를 보냅니다.
     yield call(saga.photoCourseInfoSaga, course);
+  }
+}
+
+export function* watchPhotoUserInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { user } = yield take(types.PHOTO_USER_INFO);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.photoUserInfoSaga, user);
   }
 }
 

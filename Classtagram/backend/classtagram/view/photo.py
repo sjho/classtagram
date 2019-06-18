@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import login
+from django.http import Http404
 import json
 #from django.contrib.auth.models import User
 #from rest_auth.registration.views import RegisterView
@@ -42,7 +43,31 @@ class PhotoCourseList(APIView):
                 if obj.course.id == pk :
                     objects.append(obj)
             return objects
-        except Meeting.DoesNotExist:
+        except Photo.DoesNotExist:
+            raise Http404
+   
+    def get(self, request, pk, format=None):
+        photo = self.get_object(pk)
+        serializer = PhotoSerializer(photo, many=True)
+        return Response(serializer.data)
+
+# 유저별 사진 get
+class PhotoUserList(APIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+    
+    def get_object(self, pk):
+        try:
+            objects = []
+            for obj in Photo.objects.all() :
+                self.check_object_permissions(self.request, obj)
+                users = obj.course.users.all()
+                for user in users :
+                    if user.id == pk :
+                        objects.append(obj)
+                        break
+            return objects
+        except Photo.DoesNotExist:
             raise Http404
    
     def get(self, request, pk, format=None):

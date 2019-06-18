@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, photoUserInfoAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -30,17 +30,25 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
-    this.state.username = localStorage.getItem('user').username;
-    this.props.dispatch(mainInfoAction(this.state.username));
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    console.log(user.user);
+
+    this.props.dispatch(mainInfoAction());
+    this.props.dispatch(photoUserInfoAction(user.user));
   }
 
 
   render() {
-    let data;
-
+    let data, photodata;
   
     if (this.props.response.main.hasOwnProperty('response')) {
       data = this.props.response.main.response;
+    }
+
+    if (this.props.response.photouser.hasOwnProperty('response')) {
+      photodata = this.props.response.photouser.response;
+      console.log(photodata);
     }
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -74,7 +82,10 @@ class MainPage extends Component {
         linkto : '/manage'
       })
     };
-    const LinkPhoto = (coursename, created) => {
+    const LinkPhoto = (item) => {
+      console.log(item);
+      localStorage.setItem('course', item.course);
+      localStorage.setItem('photo', item.id);
       this.setState({
         linkto : '/photo'
       })
@@ -105,6 +116,7 @@ class MainPage extends Component {
           <div>
             <MainDashBoard
               data = {data}
+              photodata = {photodata}
               onLinkMain = {() => LinkMain()}
               onLinkCourse = {(e) => LinkCourse(e)}
               onLinkManage = {(e) => LinkManage(e)}

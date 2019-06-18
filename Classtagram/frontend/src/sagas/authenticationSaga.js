@@ -24,9 +24,9 @@ export function* loginSaga(payload) {
   }
 }
 
-export function* mainInfoSaga(payload) {
+export function* mainInfoSaga() {
   try {
-    const response = yield call(services.mainInfoService, payload);
+    const response = yield call(services.mainInfoService);
     yield put({ type: types.MAIN_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.MAIN_INFO_ERROR, error })
@@ -75,6 +75,15 @@ export function* photoCourseInfoSaga(payload) {
     yield put({ type: types.PHOTO_COURSE_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.PHOTO_COURSE_INFO_ERROR, error })
+  }
+}
+
+export function* photoUserInfoSaga(payload) {
+  try {
+    const response = yield call(services.photoUserInfoService, payload);
+    yield put({ type: types.PHOTO_USER_INFO_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.PHOTO_USER_INFO_ERROR, error })
   }
 }
 

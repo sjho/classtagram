@@ -36,6 +36,13 @@ export const photoCourseInfoAction = (course) => {
   }
 }
 
+export const photoUserInfoAction = (user) => {
+  return {
+    type : types.PHOTO_USER_INFO,
+    user
+  }
+}
+
 export const photoInfoAction = (photo) => {
   return {
     type : types.PHOTO_INFO,
