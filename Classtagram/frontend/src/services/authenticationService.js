@@ -59,6 +59,27 @@ export const mainInfoService = () => {
     });
 };
 
+export const userCourseInfoService = (request) => {
+  const course = request;
+
+  const USERCOURSEINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/users/course/'.concat(course); //coursenum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(USERCOURSEINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
 export const courseInfoService = (request) => {
   const course = request;
   const COURSEINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/courses/'.concat(course); //coursenum
@@ -229,6 +250,48 @@ export const tagPutService = (request) => {
       return json;
     });
 };
+
+export const requestPostService = (request) => {
+  const REQUESTPOST_API_ENDPOINT = 'http://127.0.0.1:8000/backend/requests/';
+
+  const parameters = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(request)
+  };
+
+  return fetch(REQUESTPOST_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const requestCourseInfoService = (request) => {
+  const course = request;
+
+  const REQUESTCOURSEINFO_API_ENDPOINT = 'http://127.0.0.1:8000/backend/requests/course/'.concat(course); //photonum
+
+  const parameters = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(REQUESTCOURSEINFO_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
 
 export const logoutUserService = (request) => {
   const LOGOUT_API_ENDPOINT = 'http://127.0.0.1:8000/backend/username'; //username

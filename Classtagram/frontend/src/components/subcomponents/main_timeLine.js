@@ -17,11 +17,8 @@ export default function Main_timeLine({
 }) {
   let course = teststor.courses;
   let link = "http://127.0.0.1:8000";
-  console.log(course);
-  console.log(teststor.photoes);
 
     return (
-
       <div>
         <Fragment>
           <h2>
@@ -32,10 +29,11 @@ export default function Main_timeLine({
               <div>
                 <Event 
                 interval={item.created.substring(0, 10)} 
-                title={
+                title={teststor.isloaded ?
                   course.find(function(element) {
-                    return element.id = item.course;
-                  }).coursename}>
+                    return element.id == item.course;
+                  }).coursename : 'Loading'
+                  }>
                   <Link onClick = {() => onLinkPhoto_timeLine(item)}>
                     <img src={link.concat(item.photo)}/>
                   </Link>

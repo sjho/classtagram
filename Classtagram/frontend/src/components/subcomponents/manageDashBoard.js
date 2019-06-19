@@ -115,6 +115,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ManageDashboard({
+  data,
+  course,
+  request,
+  courseuser,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
@@ -327,6 +331,15 @@ export default function ManageDashboard({
   };
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
+  if (data != undefined && course != undefined && request != undefined && courseuser != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.request = request;
+    teststor.courseuser = courseuser;
+    teststor.course = course;
+  }
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -375,7 +388,7 @@ export default function ManageDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>

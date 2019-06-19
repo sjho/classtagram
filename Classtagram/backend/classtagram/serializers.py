@@ -41,6 +41,14 @@ class RequestSerializer(serializers.ModelSerializer):
 		model = Request
 		fields = ('id', 'user', 'course')
 
+# 강의 등록 요청 시리얼라이저
+class RequestShowSerializer(serializers.ModelSerializer):
+	user = UserSerializer()
+
+	class Meta:
+		model = Request
+		fields = ('id', 'user', 'course')
+
 # 사진 시리얼라이저
 class PhotoSerializer(serializers.ModelSerializer):
 

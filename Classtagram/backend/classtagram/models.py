@@ -66,8 +66,8 @@ class Course(models.Model):
 
 # 강의 등록 요청 모델
 class Request(models.Model):
-	user = models.ForeignKey(User, related_name='requests', on_delete=models.CASCADE)
-	course = models.ForeignKey(Course, related_name='requests', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, related_name='requests_user', on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, related_name='requests_course', on_delete=models.CASCADE)
 
 # 사진 모델
 class Photo(models.Model):

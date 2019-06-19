@@ -42,6 +42,15 @@ export function* logoutSaga(payload) {
   }
 }
 
+export function* userCourseInfoSaga(payload) {
+  try {
+    const response = yield call(services.userCourseInfoService, payload);
+    yield put({ type: types.USER_COURSE_INFO_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.USER_COURSE_INFO_ERROR, error })
+  }
+}
+
 export function* courseInfoSaga(payload) {
   try {
     const response = yield call(services.courseInfoService, payload);
@@ -112,5 +121,23 @@ export function* tagPutSaga(payload) {
     yield put({ type: types.TAG_PUT_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.TAG_PUT_ERROR, error })
+  }
+}
+
+export function* requestPostSaga(payload) {
+  try {
+    const response = yield call(services.requestPostService, payload);
+    yield put({ type: types.REQUEST_POST_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.REQUEST_POST_ERROR, error })
+  }
+}
+
+export function* requestCourseInfoSaga(payload) {
+  try {
+    const response = yield call(services.requestCourseInfoService, payload);
+    yield put({ type: types.REQUEST_COURSE_INFO_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.REQUEST_COURSE_INFO_ERROR, error })
   }
 }

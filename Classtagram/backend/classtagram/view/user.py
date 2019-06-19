@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from classtagram.models import User
+from classtagram.models import User, Course
 from classtagram.serializers import UserSerializer, RegisterSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
@@ -35,6 +35,7 @@ class Register(APIView):
 	#def perform_create(self, serializer):
 	#	serializer.save()
 
+
 # 강의 수정/삭제 뷰
 class UserDetail(APIView):
     queryset = User.objects.all()
@@ -65,6 +66,24 @@ class UserDetail(APIView):
         User = self.get_object(pk)
         User.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# 수업별 유저 get
+class UserCourseList(APIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def get_object(self, pk):
+        try:
+            course = Course.objects.get(pk=pk)
+            objects = course.users.all()
+            return objects
+        except User.DoesNotExist:
+            raise Http404
+   
+    def get(self, request, pk, format=None):
+        users = self.get_object(pk)
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 # 로그인 뷰
 @csrf_exempt

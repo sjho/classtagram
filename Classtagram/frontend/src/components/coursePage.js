@@ -31,8 +31,8 @@ class CoursePage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
-    this.state.username = localStorage.getItem('user').username;
     this.state.courseid = localStorage.getItem('course');
+
     this.props.dispatch(mainInfoAction(this.state.username));
     this.props.dispatch(courseInfoAction(this.state.courseid));
     this.props.dispatch(photoCourseInfoAction(this.state.courseid));

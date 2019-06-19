@@ -122,9 +122,11 @@ export default function MainDashboard({
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  makeRequest
   }) {
     
   const teststor = {
+    isloaded : false,
     user: {
       username: "test01", //ID
       is_student: true,
@@ -192,6 +194,7 @@ export default function MainDashboard({
     teststor.user = data;
     teststor.photoes = photodata.slice();
     teststor.photoes.reverse();
+    teststor.isloaded = true;
   }
 
   return (
@@ -278,7 +281,7 @@ export default function MainDashboard({
                   <div> 
                     <Main_courseEdit
                       teststor = {teststor}
-                      onEdit = {() => onLinkMain()}
+                      onEdit = {(e) => makeRequest(e)}
                     />
                   </div>
                 </Paper>

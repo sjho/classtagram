@@ -22,6 +22,13 @@ export const mainInfoAction = (user) => {
   }
 };
 
+export const userCourseInfoAction = (course) => {
+  return {
+    type : types.USER_COURSE_INFO,
+    course
+  }
+}
+
 export const courseInfoAction = (course) => {
   return {
     type : types.COURSE_INFO,
@@ -100,3 +107,20 @@ export const logoutUserAction = (user) => {
     user
   }
 };
+
+export const requestPostAction = (user, course) => {
+  return {
+    type : types.REQUEST_POST,
+    request : {
+      user : user,
+      course : course
+    },
+  }
+}
+
+export const requestCourseInfoAction = (course) => {
+  return {
+    type : types.REQUEST_COURSE_INFO,
+    course
+  }
+}

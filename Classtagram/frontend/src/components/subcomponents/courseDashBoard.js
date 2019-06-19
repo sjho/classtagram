@@ -339,7 +339,7 @@ export default function CourseDashboard({
     teststor.user = data;
     teststor.course = course;
     teststor.photoes = photo;
-    if (!teststor.photoes.includes({coursename:""})) teststor.photoes.push({coursename:""})
+    if (!teststor.photoes.includes({coursename:""}) && data.id == course.superuser) teststor.photoes.push({coursename:""})
     teststor.photoes.reverse();
   }
 

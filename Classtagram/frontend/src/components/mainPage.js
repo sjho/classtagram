@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction, photoUserInfoAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, photoUserInfoAction, requestPostAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -32,8 +32,6 @@ class MainPage extends Component {
     this.state = initialState;
     const user = JSON.parse(localStorage.getItem('user'));
 
-    console.log(user.user);
-
     this.props.dispatch(mainInfoAction());
     this.props.dispatch(photoUserInfoAction(user.user));
   }
@@ -48,7 +46,6 @@ class MainPage extends Component {
 
     if (this.props.response.photouser.hasOwnProperty('response')) {
       photodata = this.props.response.photouser.response;
-      console.log(photodata);
     }
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -69,8 +66,13 @@ class MainPage extends Component {
         linkto : '/main'
       })
     };
+    const MakeRequest = (e) => {
+      this.props.dispatch(requestPostAction(user.user, e));
+      this.setState({
+        linkto : '/main'
+      })
+    };
     const LinkCourse = (courseid) => {
-      
       //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
       localStorage.setItem('course', courseid);
       this.setState({
@@ -83,7 +85,6 @@ class MainPage extends Component {
       })
     };
     const LinkPhoto = (item) => {
-      console.log(item);
       localStorage.setItem('course', item.course);
       localStorage.setItem('photo', item.id);
       this.setState({
@@ -123,6 +124,7 @@ class MainPage extends Component {
               onLinkPhoto = {(e) => LinkPhoto(e)}
               onLinkStat = {(e) => LinkStat(e)}
               onLinkCreate = {() => LinkCreate()}
+              makeRequest = {(e) => MakeRequest(e)}
             />
           </div> 
         );

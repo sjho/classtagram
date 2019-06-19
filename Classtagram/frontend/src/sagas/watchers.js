@@ -40,6 +40,15 @@ export function* watchLogoutAuthentication() {
   }
 }
 
+export function* watchUserCourseInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { course } = yield take(types.USER_COURSE_INFO);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.userCourseInfoSaga, course);
+  }
+}
+
 export function* watchCourseInfoAuthentication() {
   while(true){
     // 유저 정보를 받아옵니다.
@@ -109,5 +118,23 @@ export function* watchTagPutAuthentication() {
     const { tag, info } = yield take(types.TAG_PUT);
     // loginSaga를 call하고 user정보를 보냅니다.
     yield call(saga.tagPutSaga, {tag, info});
+  }
+}
+
+export function* watchRequestPostAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { request } = yield take(types.REQUEST_POST);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.requestPostSaga, request);
+  }
+}
+
+export function* watchRequestCourseInfoAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { course } = yield take(types.REQUEST_COURSE_INFO);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.requestCourseInfoSaga, course);
   }
 }
