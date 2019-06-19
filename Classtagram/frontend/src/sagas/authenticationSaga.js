@@ -60,6 +60,15 @@ export function* courseInfoSaga(payload) {
   }
 }
 
+export function* coursePutSaga(payload) {
+  try {
+    const response = yield call(services.coursePutService, payload);
+    yield put({ type: types.COURSE_PUT_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.COURSE_PUT_ERROR, error })
+  }
+}
+
 export function* photoPostSaga(payload) {
   try {
     const response = yield call(services.photoPostService, payload);
@@ -132,6 +141,16 @@ export function* requestPostSaga(payload) {
     yield put({ type: types.REQUEST_POST_ERROR, error })
   }
 }
+
+export function* requestDeleteSaga(payload) {
+  try {
+    const response = yield call(services.requestDeleteService, payload);
+    yield put({ type: types.REQUEST_DELETE_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.REQUEST_DELETE_ERROR, error })
+  }
+}
+
 
 export function* requestCourseInfoSaga(payload) {
   try {

@@ -36,6 +36,14 @@ export const courseInfoAction = (course) => {
   }
 }
 
+export const coursePutAction = (course, info) => {
+  return {
+    type : types.COURSE_PUT,
+    course,
+    info
+  }
+}
+
 export const photoCourseInfoAction = (course) => {
   return {
     type : types.PHOTO_COURSE_INFO,
@@ -115,6 +123,13 @@ export const requestPostAction = (user, course) => {
       user : user,
       course : course
     },
+  }
+}
+
+export const requestDeleteAction = (request) => {
+  return {
+    type : types.REQUEST_DELETE,
+    request
   }
 }
 

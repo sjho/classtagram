@@ -124,6 +124,8 @@ export default function ManageDashboard({
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onRequestAdd,
+  onRequestDelete
   }) {
   const teststor = {
     user: {
@@ -355,13 +357,8 @@ export default function ManageDashboard({
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Classtagram
+            {"Classtagram_"+teststor.course.coursename}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -406,6 +403,8 @@ export default function ManageDashboard({
               <Paper className={fixedHeightPaper_full}>
                 <Manage_Req
                   teststor={teststor}
+                  onRequestAdd={onRequestAdd}
+                  onRequestDelete={onRequestDelete}
                 />
               </Paper>
             </Grid>

@@ -214,11 +214,6 @@ export default function MainDashboard({
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Classtagram
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer

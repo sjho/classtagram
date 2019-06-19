@@ -363,11 +363,6 @@ export default function CourseDashboard({
             //teststor 대신 백엔드 리스폰스를 넣으면 원하는 결과 출력 가능
             }
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -428,7 +423,8 @@ export default function CourseDashboard({
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
                   <div>
-                  {teststor.user.is_student?
+                  {(data != undefined && course != undefined)?(
+                    !(data.id == course.superuser)?
                     <Course_stat
                       teststor={teststor}
                     />
@@ -440,7 +436,7 @@ export default function CourseDashboard({
                     />
                     //user가 instructor이면, manage 및 statistic page로 갈 수 있는 link button
                     //아니면, 간단한 statistic(본인)                    
-                  }
+                  ):"Loading"}
                   </div>
                 </Paper>
               </Grid>

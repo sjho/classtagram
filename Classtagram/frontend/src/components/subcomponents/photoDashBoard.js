@@ -351,7 +351,7 @@ export default function PhotoDashboard({
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Classtagram
+          {"Classtagram_"+teststor.course.coursename}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={10} color="secondary">

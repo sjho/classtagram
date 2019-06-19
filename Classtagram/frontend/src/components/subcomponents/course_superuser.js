@@ -36,11 +36,7 @@ export default function Course_superuser({
         <Button variant="contained" color='primary'
                  className={classes.button} size='large' onClick={() => onLinkManage_superuser(teststor.course.coursename)}>
           Manage
-        </Button>
-        <Button variant="contained" color='primary'
-                 className={classes.button} size='large' onClick={() => onLinkStat_superuser(teststor.course.coursename)}>
-          Statistics
-        </Button>         
+        </Button>      
     </div>
     );
 }

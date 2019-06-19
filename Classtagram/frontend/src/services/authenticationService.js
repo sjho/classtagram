@@ -100,6 +100,27 @@ export const courseInfoService = (request) => {
     });
 };
 
+export const coursePutService = (request) => {
+
+  const COURSEPUT_API_ENDPOINT = 'http://127.0.0.1:8000/backend/courses/'.concat(request.course);
+
+  const parameters = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(request.info)
+  };
+
+  return fetch(COURSEPUT_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
 export const photoPostService = (request) => {
   const PHOTOPOST_API_ENDPOINT = 'http://127.0.0.1:8000/backend/photos/';
   let formData = new FormData();
@@ -263,6 +284,25 @@ export const requestPostService = (request) => {
   };
 
   return fetch(REQUESTPOST_API_ENDPOINT, parameters)
+    .then(response => {
+      return response.json();
+    })
+    .then(json => {
+      return json;
+    });
+};
+
+export const requestDeleteService = (request) => {
+  const REQUESTDELETE_API_ENDPOINT = 'http://127.0.0.1:8000/backend/requests/'.concat(request);
+
+  const parameters = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  return fetch(REQUESTDELETE_API_ENDPOINT, parameters)
     .then(response => {
       return response.json();
     })

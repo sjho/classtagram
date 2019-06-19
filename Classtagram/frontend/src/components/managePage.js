@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction, courseInfoAction, requestCourseInfoAction, userCourseInfoAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, courseInfoAction, requestCourseInfoAction, userCourseInfoAction, requestDeleteAction, coursePutAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -51,13 +51,31 @@ class ManagePage extends Component {
 
     if (this.props.response.requestcourse.hasOwnProperty('response')) {
       request = this.props.response.requestcourse.response;
-      console.log(request);
     }
 
     if (this.props.response.usercourse.hasOwnProperty('response')) {
       courseuser = this.props.response.usercourse.response;
-      console.log(courseuser);
     }
+
+    if (this.props.response.requestdelete.hasOwnProperty('response')) {
+      this.props.dispatch(mainInfoAction());
+      this.props.dispatch(courseInfoAction(this.state.courseid));
+      this.props.dispatch(requestCourseInfoAction(this.state.courseid));
+      this.props.dispatch(userCourseInfoAction(this.state.courseid));
+
+      this.props.response.requestdelete = undefined;
+    }
+
+    if (this.props.response.courseput.hasOwnProperty('response')) {
+      this.props.dispatch(mainInfoAction());
+      this.props.dispatch(courseInfoAction(this.state.courseid));
+      this.props.dispatch(requestCourseInfoAction(this.state.courseid));
+      this.props.dispatch(userCourseInfoAction(this.state.courseid));
+
+      this.props.response.courseput = undefined;
+    }
+
+    
 
     let linkto = "";
     const LinkMain = () => {
@@ -93,6 +111,15 @@ class ManagePage extends Component {
         linkto: '/create'
       })
     }
+    const RequestAdd = (request, user) => {
+      this.props.dispatch(requestDeleteAction(request.id));
+      course.users.push(user.id)
+      this.props.dispatch(coursePutAction(course.id, course));
+    }
+    const RequestDelete = (request) => {
+      console.log(request);
+      this.props.dispatch(requestDeleteAction(request));
+    }
     switch(this.state.linkto) {
       case '/course':
         return (<Redirect to= '/course' />);
@@ -115,6 +142,8 @@ class ManagePage extends Component {
               onLinkManage = {(e) => LinkManage(e)}
               onLinkPhoto = {(e) => LinkPhoto(e)}
               onLinkStat = {(e) => LinkStat(e)}
+              onRequestAdd = {(e1, e2) => RequestAdd(e1, e2)}
+              onRequestDelete = {(e) => RequestDelete(e)}
             />
           </div> 
         );
