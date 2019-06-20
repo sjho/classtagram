@@ -82,10 +82,11 @@ export default function Manage_List({
             <TableCell align="right">student_number</TableCell>
             <TableCell align="right">school</TableCell>
             <TableCell align="right">major</TableCell>
+            <TableCell align="right">attendance status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          { teststor.course.superuser.map( (participant) => (
+          { !(teststor.courseuser == undefined) ? teststor.courseuser.map( (participant) => (
             <TableRow className={participant.is_student? classes.tablerow_student : classes.tablerow_instructor} key={participant.id}>
               <TableCell component="th" scope="row">
                 {participant.name}
@@ -93,18 +94,9 @@ export default function Manage_List({
               <TableCell align="right">{participant.student_number}</TableCell>
               <TableCell align="right">{participant.school}</TableCell>
               <TableCell align="right">{participant.major}</TableCell>
+              <TableCell align="right">{!(participant.id == teststor.course.superuser)?participant.count+" / "+participant.wholecount:"Professor"}</TableCell>
             </TableRow>    
-          ))}        
-          { teststor.course.participants.map( (participant) => (
-            <TableRow className={participant.is_student? classes.tablerow_student : classes.tablerow_instructor} key={participant.id}>
-              <TableCell component="th" scope="row">
-                {participant.name}
-              </TableCell>
-              <TableCell align="right">{participant.student_number}</TableCell>
-              <TableCell align="right">{participant.school}</TableCell>
-              <TableCell align="right">{participant.major}</TableCell>
-            </TableRow>    
-          ))}
+          )) : 'Loading'}        
         </TableBody>
         </Table>  
       </div>

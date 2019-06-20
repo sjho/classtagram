@@ -24,7 +24,7 @@ class CourseList(APIView):
 	def post(self, request, format=None):
 		serializer = CourseSerializer(data=request.data)
 		if serializer.is_valid():
-			serializer.save(superuser=self.request.user)
+			serializer.save()
 			return JsonResponse({'success':True, 'message':'make course successfully!'})
 		else:
 			return JsonResponse({'success':False, 'message':'error'})

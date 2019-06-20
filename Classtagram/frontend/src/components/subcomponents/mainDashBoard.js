@@ -115,14 +115,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MainDashboard({
-  courses,
+  data,
+  photodata,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onLinkCreate,
+  makeRequest
   }) {
+    
   const teststor = {
+    isloaded : false,
     user: {
       username: "test01", //ID
       is_student: true,
@@ -156,6 +161,7 @@ export default function MainDashboard({
     ],
     photoes: [
       {
+        course:1,
         coursename:"SWPP",
         photo:"photo_1",
         created:"03.03",
@@ -163,39 +169,12 @@ export default function MainDashboard({
         isUploaded: true,
       },
       {
+        course:1,
         coursename:"AL",
         photo:"photo_2",
         created:"03.06",
         isChecked: true,
         isUploaded: true,        
-      },
-      {
-        coursename:"SWPP",
-        photo:"photo_3",
-        created:"03.06",
-        isChecked: false,
-        isUploaded: true,        
-      },
-      {
-        coursename:"SWPP",
-        photo:"photo_4",
-        created:"03.10",
-        isChecked: false,
-        isUploaded: true,        
-      },
-      {
-        coursename:"AL",
-        photo:"photo_5",
-        created:"03.13",
-        isChecked: false,
-        isUploaded: false,        
-      },
-      {
-        coursename:"SWPP",
-        photo:"photo_6",
-        created:"03.13",
-        isChecked: false,
-        isUploaded: false,        
       },
     ],
   };
@@ -210,6 +189,14 @@ export default function MainDashboard({
   };
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
+  
+  if (data != undefined && photodata != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.photoes = photodata.slice();
+    teststor.photoes.reverse();
+    teststor.isloaded = true;
+  }
 
   return (
     <div className={classes.root}>
@@ -228,11 +215,6 @@ export default function MainDashboard({
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Classtagram
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -259,7 +241,7 @@ export default function MainDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
@@ -286,7 +268,13 @@ export default function MainDashboard({
             <Grid container spacing={2} item xs={4} >
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
-                  {/*<Announce />*/} 123123
+                <div>
+                <h3>{teststor.user.is_student?"Student":"Professor"} Profile</h3>
+                  <h4>Name : {teststor.user.name}</h4>
+                  <h4>School : {teststor.user.school}</h4>
+                  <h4>Major : {teststor.user.major}</h4>
+                  <h4>Student Number : {teststor.user.student_number}</h4>
+                </div>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -295,7 +283,8 @@ export default function MainDashboard({
                   <div> 
                     <Main_courseEdit
                       teststor = {teststor}
-                      onEdit = {() => onLinkMain()}
+                      onEdit = {(e) => makeRequest(e)}
+                      onLinkCreate = {(e) => onLinkCreate(e)}
                     />
                   </div>
                 </Paper>

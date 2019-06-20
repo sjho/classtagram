@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, photoUserInfoAction, requestPostAction, coursePostAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -30,19 +30,27 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
     this.state = initialState;
-    this.state.username = localStorage.getItem('user').username;
-    this.props.dispatch(mainInfoAction(this.state.username));
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    this.props.dispatch(mainInfoAction());
+    this.props.dispatch(photoUserInfoAction(user.user));
   }
 
 
   render() {
-    let courses;
-
+    let data, photodata;
   
-    console.log(this.props.response.main);
     if (this.props.response.main.hasOwnProperty('response')) {
-      courses = this.props.response.main.response.courses;
-      console.log(courses);
+      data = this.props.response.main.response;
+    }
+
+    if (this.props.response.photouser.hasOwnProperty('response')) {
+      photodata = this.props.response.photouser.response;
+    }
+
+    if (this.props.response.coursepost.hasOwnProperty('response')) {
+      this.props.dispatch(mainInfoAction());
+      this.props.response.coursepost = {};
     }
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -62,11 +70,16 @@ class MainPage extends Component {
       this.setState({
         linkto : '/main'
       })
-      console.log("LinkMain Worked")
     };
-    const LinkCourse = (coursename) => {
-      console.log(coursename);
+    const MakeRequest = (e) => {
+      this.props.dispatch(requestPostAction(user.user, e));
+      this.setState({
+        linkto : '/main'
+      })
+    };
+    const LinkCourse = (courseid) => {
       //coursename이 정상적으로 들어옴 -> 백엔드에 Coursename 전달 후 reponse를 받으면 될 것.
+      localStorage.setItem('course', courseid);
       this.setState({
         linkto : '/course'
       })
@@ -76,7 +89,9 @@ class MainPage extends Component {
         linkto : '/manage'
       })
     };
-    const LinkPhoto = (coursename, created) => {
+    const LinkPhoto = (item) => {
+      localStorage.setItem('course', item.course);
+      localStorage.setItem('photo', item.id);
       this.setState({
         linkto : '/photo'
       })
@@ -86,9 +101,10 @@ class MainPage extends Component {
         linkto : '/stat'
       })
     };
-    const LinkCreate = () => {
+    const LinkCreate = (coursename) => {
+      this.props.dispatch(coursePostAction(coursename, user.user));
       this.setState({
-        linkto: '/create'
+        linkto : '/main'
       })
     }
     switch(this.state.linkto) {
@@ -106,12 +122,15 @@ class MainPage extends Component {
         return (
           <div>
             <MainDashBoard
+              data = {data}
+              photodata = {photodata}
               onLinkMain = {() => LinkMain()}
               onLinkCourse = {(e) => LinkCourse(e)}
               onLinkManage = {(e) => LinkManage(e)}
               onLinkPhoto = {(e) => LinkPhoto(e)}
               onLinkStat = {(e) => LinkStat(e)}
-              onLinkCreate = {() => LinkCreate()}
+              onLinkCreate = {(e) => LinkCreate(e)}
+              makeRequest = {(e) => MakeRequest(e)}
             />
           </div> 
         );

@@ -1,12 +1,14 @@
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from classtagram.models import Tag
-from classtagram.serializers import TagSerializer
+from classtagram.serializers import TagSerializer, TagShowSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import login
+from django.http import Http404
 import json
 #from django.contrib.auth.models import User
 #from rest_auth.registration.views import RegisterView
@@ -24,10 +26,26 @@ class TagList(APIView):
 	def post(self, request, format=None):
 		serializer = TagSerializer(data=request.data)
 		if serializer.is_valid():
-			serializer.save(superuser=self.request.user)
+			serializer.save()
 			return JsonResponse({'success':True, 'message':'make tag successfully!'})
 		else:
 			return JsonResponse({'success':False, 'message':'error'})
+
+class TagPhotoList(APIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagShowSerializer
+    
+    def get_object(self, pk):
+        try:
+            objects = Tag.objects.filter(photo=pk)
+            return objects
+        except Tag.DoesNotExist:
+            raise Http404
+   
+    def get(self, request, pk, format=None):
+        tag = self.get_object(pk)
+        serializer = TagShowSerializer(tag, many=True)
+        return Response(serializer.data)
 
 # 강의 수정/삭제 뷰
 class TagDetail(APIView):
@@ -39,7 +57,7 @@ class TagDetail(APIView):
             obj = Tag.objects.get(pk=pk)
             self.check_object_permissions(self.request, obj)
             return obj
-        except Meeting.DoesNotExist:
+        except Tag.DoesNotExist:
             raise Http404
    
     def get(self, request, pk, format=None):
@@ -51,7 +69,7 @@ class TagDetail(APIView):
         tag = self.get_object(pk)
         serializer = TagSerializer(tag, data=request.data)
         if serializer.is_valid():
-            serializer.save(user=self.request.user)
+            serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

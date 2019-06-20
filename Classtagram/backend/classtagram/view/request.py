@@ -1,12 +1,14 @@
 from django.shortcuts import render
+from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from classtagram.models import Request
-from classtagram.serializers import RequestSerializer
+from classtagram.serializers import RequestSerializer, RequestShowSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import login
+from django.http import Http404
 import json
 #from django.contrib.auth.models import User
 #from rest_auth.registration.views import RegisterView
@@ -24,10 +26,27 @@ class RequestList(APIView):
 	def post(self, request, format=None):
 		serializer = RequestSerializer(data=request.data)
 		if serializer.is_valid():
-			serializer.save(superuser=self.request.user)
+			serializer.save()
 			return JsonResponse({'success':True, 'message':'make request successfully!'})
 		else:
 			return JsonResponse({'success':False, 'message':'error'})
+
+# 수업별 요청 get
+class RequestCourseList(APIView):
+    queryset = Request.objects.all()
+    serializer_class = RequestShowSerializer
+    
+    def get_object(self, pk):
+        try:
+            objects = Request.objects.filter(course=pk)
+            return objects
+        except Request.DoesNotExist:
+            raise Http404
+   
+    def get(self, request, pk, format=None):
+        request = self.get_object(pk)
+        serializer = RequestShowSerializer(request, many=True)
+        return Response(serializer.data)
 
 # 강의 수정/삭제 뷰
 class RequestDetail(APIView):
@@ -39,7 +58,7 @@ class RequestDetail(APIView):
             obj = Request.objects.get(pk=pk)
             self.check_object_permissions(self.request, obj)
             return obj
-        except Meeting.DoesNotExist:
+        except Request.DoesNotExist:
             raise Http404
    
     def get(self, request, pk, format=None):

@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 export default function Course_superuser({
 	teststor,
 	onLinkManage_superuser,
-	onLinkStat_superuser,
+	onDelete_superuser,
 }) {
   const classes = useStyles();
   // const classes = useStyles();
@@ -37,10 +37,10 @@ export default function Course_superuser({
                  className={classes.button} size='large' onClick={() => onLinkManage_superuser(teststor.course.coursename)}>
           Manage
         </Button>
-        <Button variant="contained" color='primary'
-                 className={classes.button} size='large' onClick={() => onLinkStat_superuser(teststor.course.coursename)}>
-          Statistics
-        </Button>         
+        <Button variant="contained" color='secondary'
+                 className={classes.button} size='large' onClick={() => onDelete_superuser(teststor.course.id)}>
+          Delete
+        </Button>        
     </div>
     );
 }

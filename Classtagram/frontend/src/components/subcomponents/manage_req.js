@@ -83,6 +83,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Manage_List({
   teststor,
+  onRequestAdd,
+  onRequestDelete
 }) {
     const classes = useStyles();
     return (
@@ -98,24 +100,24 @@ export default function Manage_List({
           </TableRow>
         </TableHead>
         <TableBody>
-          { teststor.course.participants.map( (participant) => (
+          { !(teststor.request == undefined) ? teststor.request.map( (participant) => (
             <TableRow className={classes.tablerow_student} key={participant.id}>
               <TableCell align="right">
-                <Fab color="primary" aria-label="Add" className={classes.fab} size='small'>
+                <Fab color="primary" aria-label="Add" className={classes.fab} size='small' onClick={() => onRequestAdd(participant, participant.user)}>
                   <AddIcon />
                 </Fab>
-                <Fab color="secondary" aria-label="Delete" className={classes.fab} size='small'>
+                <Fab color="secondary" aria-label="Delete" className={classes.fab} size='small' onClick={() => onRequestDelete(participant.id)}>
                   <DeleteIcon />
                 </Fab>
               </TableCell>              
               <TableCell component="th" scope="row">
                 {participant.name}
               </TableCell>
-              <TableCell align="right">{participant.student_number}</TableCell>
-              <TableCell align="right">{participant.school}</TableCell>
-              <TableCell align="right">{participant.major}</TableCell>
+              <TableCell align="right">{participant.user.student_number}</TableCell>
+              <TableCell align="right">{participant.user.school}</TableCell>
+              <TableCell align="right">{participant.user.major}</TableCell>
             </TableRow>    
-          ))}
+          )) : 'Loading'}
         </TableBody>
         </Table>  
       </div>

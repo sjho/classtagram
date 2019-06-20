@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'django.contrib.sites',
     'allauth',
     'allauth.account',
+	'allauth.socialaccount',
     'rest_auth.registration',
 	'rest_auth',
 	'rest_framework',
@@ -159,3 +160,6 @@ REST_AUTH_SERIALIZERS = {
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "classtagram.serializers.RegisterSerializer",
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

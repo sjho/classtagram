@@ -66,19 +66,19 @@ class Course(models.Model):
 
 # 강의 등록 요청 모델
 class Request(models.Model):
-	user = models.ForeignKey(User, related_name='requests', on_delete=models.CASCADE)
-	course = models.ForeignKey(Course, related_name='requests', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, related_name='requests_user', on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, related_name='requests_course', on_delete=models.CASCADE)
 
 # 사진 모델
 class Photo(models.Model):
 	course = models.ForeignKey(Course, related_name='photos', on_delete=models.CASCADE)
-	photo = models.ImageField()
+	photo = models.ImageField(null=True, upload_to='media')
 	created = models.DateTimeField(auto_now_add=True)
 
 # 태그 모델
 class Tag(models.Model):
-	user = models.ForeignKey(User, related_name='tags', on_delete=models.CASCADE)
-	course = models.ForeignKey(Course, related_name='tags', on_delete=models.CASCADE)
-	photo= models.ForeignKey(Photo, related_name='tags', on_delete=models.CASCADE)
+	user = models.ForeignKey(User, related_name='tags_user', on_delete=models.CASCADE)
+	course = models.ForeignKey(Course, related_name='tags_course', on_delete=models.CASCADE)
+	photo= models.ForeignKey(Photo, related_name='tags_photo', on_delete=models.CASCADE)
 	x = models.FloatField()
 	y = models.FloatField()

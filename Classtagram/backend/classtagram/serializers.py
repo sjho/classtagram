@@ -23,13 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = User
-		fields = ('username', 'is_student', 'name', 'student_number', 'school', 'major', 'courses')
+		fields = ('id','username', 'is_student', 'name', 'student_number', 'school', 'major', 'courses')
 		read_only_fields = ('username', 'is_student',)
 
 # 강의 등록 시리얼라이저
 class CourseSerializer(serializers.ModelSerializer):
-	superuser = serializers.ReadOnlyField(source='superuser.id')
-	users = UserSerializer(read_only=True, many=True)
+#	users = UserSerializer(read_only=True, many=True)
 
 	class Meta:
 		model = Course
@@ -37,8 +36,14 @@ class CourseSerializer(serializers.ModelSerializer):
 
 # 강의 등록 요청 시리얼라이저
 class RequestSerializer(serializers.ModelSerializer):
-	user = serializers.ReadOnlyField(source='user.id')
-	course = serializers.ReadOnlyField(source='course.id')
+
+	class Meta:
+		model = Request
+		fields = ('id', 'user', 'course')
+
+# 강의 등록 요청 시리얼라이저
+class RequestShowSerializer(serializers.ModelSerializer):
+	user = UserSerializer()
 
 	class Meta:
 		model = Request
@@ -46,17 +51,37 @@ class RequestSerializer(serializers.ModelSerializer):
 
 # 사진 시리얼라이저
 class PhotoSerializer(serializers.ModelSerializer):
-	course = serializers.ReadOnlyField(source='course.id')
 
 	class Meta:
 		model = Photo
 		fields = ('id', 'course', 'photo', 'created')
 
+# 사진 시리얼라이저
+class PhotoCourseSerializer(serializers.ModelSerializer):
+	is_checked = serializers.BooleanField(initial=True)
+
+	class Meta:
+		model = Photo
+		fields = ('id', 'course', 'photo', 'created', 'is_checked')
+
 # 태그 시리얼라이저
 class TagSerializer(serializers.ModelSerializer):
-	user = serializers.ReadOnlyField(source='user.id')
-	course = serializers.ReadOnlyField(source='course.id')
-	photo = serializers.ReadOnlyField(source='photo.id')
+
+	class Meta:
+		model = Tag
+		fields = ('id', 'user', 'course', 'photo', 'x', 'y')
+
+	def validate(self, data):
+		for t in Tag.objects.all():
+			if (self.instance and self.instance.id == t.id) :
+				continue
+			if not (data.get('user').id == t.user.id and data.get('photo').id == t.photo.id):
+				continue
+			raise serializers.ValidationError("Already checked")
+		return data
+
+class TagShowSerializer(serializers.ModelSerializer):
+	user = UserSerializer()
 
 	class Meta:
 		model = Tag

@@ -113,11 +113,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function PhotoDashboard({
+  data,
+  course,
+  photo,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onDelete
   }) {
   const teststor = {
     user: {
@@ -326,6 +330,13 @@ export default function PhotoDashboard({
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const fixedHeightPaper_timeLine = clsx(classes.paper, classes.fixedHeight_timeLine);
 
+  if (data != undefined && course != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.course = course;
+    teststor.photo = photo;
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -341,13 +352,8 @@ export default function PhotoDashboard({
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Classtagram
+          {"Classtagram_"+teststor.course.coursename}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -374,7 +380,7 @@ export default function PhotoDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
@@ -387,7 +393,7 @@ export default function PhotoDashboard({
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Photo />
+          <Photo teststor={teststor} onDelete={(e) => onDelete(e)}/>
         </Container>
       </main>
     </div>

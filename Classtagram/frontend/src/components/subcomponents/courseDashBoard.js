@@ -116,11 +116,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CourseDashboard({
+  data,
+  course,
+  photo,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
-  onLinkStat,
+  onDelete,
+  onUpload
   }) {
   const teststor = {
     user: {
@@ -132,6 +136,7 @@ export default function CourseDashboard({
       major: "CSE",
     },
     course: {
+      id : 0,
       coursename: "SWPP",
       superuser: [
         {
@@ -330,6 +335,17 @@ export default function CourseDashboard({
   const fixedHeightPaper_half = clsx(classes.paper, classes.fixedHeight_half);
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
+  if (data != undefined && course != undefined && photo != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.course = course;
+    teststor.photoes = photo.slice();
+    
+    if (!teststor.photoes.includes({coursename:""}) && data.id == course.superuser) teststor.photoes.push({coursename:""})
+    teststor.photoes.reverse();
+  }
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -349,11 +365,6 @@ export default function CourseDashboard({
             //teststor 대신 백엔드 리스폰스를 넣으면 원하는 결과 출력 가능
             }
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -380,7 +391,7 @@ export default function CourseDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
@@ -399,6 +410,7 @@ export default function CourseDashboard({
               <Paper className={fixedHeightPaper_full}>
                 <Course_timeLine
                   onLinkPhoto_timeline = {(e) => onLinkPhoto(e)}
+                  onUpload_timeline = {(e) => onUpload(e)}
                   teststor={teststor}
                 />
               </Paper>
@@ -406,26 +418,29 @@ export default function CourseDashboard({
             <Grid container spacing={2} item xs={6} >
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
-                  {/*<Main_Announce />*/} 123123
+                <div>
+                  <h3>Course Info</h3>
+                  <h4>Course Name : {teststor.course.coursename}</h4>
+                  <h4>Course Number : {teststor.course.id}</h4>
+                </div>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
                   <div>
-                  {teststor.user.is_student?
-                    <Course_stat
-                      teststor={teststor}
-                    />
+                  {(data != undefined && course != undefined)?(
+                    !(data.id == course.superuser)?
+                    ""
                     :
                     <Course_superuser
                       teststor={teststor}
                       onLinkManage_superuser = {(e) => onLinkManage(e)}
-                      onLinkStat_superuser = {(e) => onLinkStat(e)}
+                      onDelete_superuser = {(e) => onDelete(e)}
                     />
                     //user가 instructor이면, manage 및 statistic page로 갈 수 있는 link button
                     //아니면, 간단한 statistic(본인)                    
-                  }
+                  ):"Loading"}
                   </div>
                 </Paper>
               </Grid>

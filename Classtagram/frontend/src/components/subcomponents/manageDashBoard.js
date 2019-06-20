@@ -115,11 +115,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ManageDashboard({
+  data,
+  course,
+  request,
+  courseuser,
   onLinkMain,
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onRequestAdd,
+  onRequestDelete
   }) {
   const teststor = {
     user: {
@@ -327,6 +333,15 @@ export default function ManageDashboard({
   };
   const fixedHeightPaper_full = clsx(classes.paper, classes.fixedHeight_full);
 
+  if (data != undefined && course != undefined && request != undefined && courseuser != undefined) {
+    teststor.courses = data.courses;
+    teststor.user = data;
+    teststor.request = request;
+    teststor.courseuser = courseuser;
+    teststor.course = course;
+  }
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -342,13 +357,8 @@ export default function ManageDashboard({
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Classtagram
+            {"Classtagram_"+teststor.course.coursename}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -375,7 +385,7 @@ export default function ManageDashboard({
           </div>
           {teststor.courses.map( (item) => (
             <div key= {item.id}>
-              <ListItem button onClick={() => onLinkCourse(item.coursename)}>
+              <ListItem button onClick={() => onLinkCourse(item.id)}>
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
@@ -393,6 +403,8 @@ export default function ManageDashboard({
               <Paper className={fixedHeightPaper_full}>
                 <Manage_Req
                   teststor={teststor}
+                  onRequestAdd={onRequestAdd}
+                  onRequestDelete={onRequestDelete}
                 />
               </Paper>
             </Grid>

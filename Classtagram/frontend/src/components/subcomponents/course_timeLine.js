@@ -9,6 +9,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -59,17 +60,28 @@ const useStyles = makeStyles(theme => ({
 export default function Course_TimeLine({
   teststor,
   onLinkPhoto_timeline,
+  onUpload_timeline,
 }) {
     const classes = useStyles();
+    console.log(teststor);
     return (
       <Grid container spacing={2}>
         {teststor.photoes.map( (photo) => (
           <div>
-            <Button variant="contained" color={photo.isUploaded ? (photo.isChecked ? 'primary' : 'secondary') : 'grey'}
-                     className={classes.button} size='middle' onClick={() => onLinkPhoto_timeline(photo.coursename, photo.created)}>
-              {photo.created}
-              <PhotoIcon className={classes.Icon} />
-             </Button>
+            {photo.coursename != "" ?
+              <Button variant="contained" color={(teststor.user.id == teststor.course.superuser) || (photo.is_checked) ? 'primary' : 'secondary'}
+                       className={classes.button} size='middle' onClick={() => onLinkPhoto_timeline(photo.id)}>
+                {photo.created.substring(0, 10)}
+                <PhotoIcon className={classes.Icon} />
+              </Button>
+              :
+              <Button variant="contained" component="label" className= {classes.button}
+                        size='middle' color = 'grey'>
+                {photo.created}
+                <AddIcon className={classes.Icon} />
+                <input type="file" style={{ display: "none" }} onChange = {(e) => onUpload_timeline(e)} />
+              </Button>
+            }
           </div>
         ))}
       </Grid>
