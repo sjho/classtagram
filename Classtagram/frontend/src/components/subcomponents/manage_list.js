@@ -82,6 +82,7 @@ export default function Manage_List({
             <TableCell align="right">student_number</TableCell>
             <TableCell align="right">school</TableCell>
             <TableCell align="right">major</TableCell>
+            <TableCell align="right">attendance status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -93,6 +94,7 @@ export default function Manage_List({
               <TableCell align="right">{participant.student_number}</TableCell>
               <TableCell align="right">{participant.school}</TableCell>
               <TableCell align="right">{participant.major}</TableCell>
+              <TableCell align="right">{!(participant.id == teststor.course.superuser)?participant.count+" / "+participant.wholecount:"Professor"}</TableCell>
             </TableRow>    
           )) : 'Loading'}        
         </TableBody>

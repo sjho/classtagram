@@ -123,7 +123,7 @@ export default function CourseDashboard({
   onLinkCourse,
   onLinkManage,
   onLinkPhoto,
-  onLinkStat,
+  onDelete,
   onUpload
   }) {
   const teststor = {
@@ -136,6 +136,7 @@ export default function CourseDashboard({
       major: "CSE",
     },
     course: {
+      id : 0,
       coursename: "SWPP",
       superuser: [
         {
@@ -338,7 +339,8 @@ export default function CourseDashboard({
     teststor.courses = data.courses;
     teststor.user = data;
     teststor.course = course;
-    teststor.photoes = photo;
+    teststor.photoes = photo.slice();
+    
     if (!teststor.photoes.includes({coursename:""}) && data.id == course.superuser) teststor.photoes.push({coursename:""})
     teststor.photoes.reverse();
   }
@@ -416,7 +418,11 @@ export default function CourseDashboard({
             <Grid container spacing={2} item xs={6} >
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
-                  {/*<Main_Announce />*/} 123123
+                <div>
+                  <h3>Course Info</h3>
+                  <h4>Course Name : {teststor.course.coursename}</h4>
+                  <h4>Course Number : {teststor.course.id}</h4>
+                </div>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -425,14 +431,12 @@ export default function CourseDashboard({
                   <div>
                   {(data != undefined && course != undefined)?(
                     !(data.id == course.superuser)?
-                    <Course_stat
-                      teststor={teststor}
-                    />
+                    ""
                     :
                     <Course_superuser
                       teststor={teststor}
                       onLinkManage_superuser = {(e) => onLinkManage(e)}
-                      onLinkStat_superuser = {(e) => onLinkStat(e)}
+                      onDelete_superuser = {(e) => onDelete(e)}
                     />
                     //user가 instructor이면, manage 및 statistic page로 갈 수 있는 link button
                     //아니면, 간단한 statistic(본인)                    

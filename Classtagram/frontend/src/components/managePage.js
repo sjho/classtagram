@@ -63,7 +63,7 @@ class ManagePage extends Component {
       this.props.dispatch(requestCourseInfoAction(this.state.courseid));
       this.props.dispatch(userCourseInfoAction(this.state.courseid));
 
-      this.props.response.requestdelete = undefined;
+      this.props.response.requestdelete = {};
     }
 
     if (this.props.response.courseput.hasOwnProperty('response')) {
@@ -72,7 +72,7 @@ class ManagePage extends Component {
       this.props.dispatch(requestCourseInfoAction(this.state.courseid));
       this.props.dispatch(userCourseInfoAction(this.state.courseid));
 
-      this.props.response.courseput = undefined;
+      this.props.response.courseput = {};
     }
 
     

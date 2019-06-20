@@ -69,6 +69,24 @@ export function* coursePutSaga(payload) {
   }
 }
 
+export function* coursePostSaga(payload) {
+  try {
+    const response = yield call(services.coursePostService, payload);
+    yield put({ type: types.COURSE_POST_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.COURSE_POST_ERROR, error })
+  }
+}
+
+export function* courseDeleteSaga(payload) {
+  try {
+    const response = yield call(services.courseDeleteService, payload);
+    yield put({ type: types.COURSE_DELETE_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.COURSE_DELETE_ERROR, error })
+  }
+}
+
 export function* photoPostSaga(payload) {
   try {
     const response = yield call(services.photoPostService, payload);
@@ -84,6 +102,15 @@ export function* photoInfoSaga(payload) {
     yield put({ type: types.PHOTO_INFO_SUCCESS, response });
   } catch(error) {
     yield put({ type: types.PHOTO_INFO_ERROR, error })
+  }
+}
+
+export function* photoDeleteSaga(payload) {
+  try {
+    const response = yield call(services.photoDeleteService, payload);
+    yield put({ type: types.PHOTO_DELETE_SUCCESS, response });
+  } catch(error) {
+    yield put({ type: types.PHOTO_DELETE_ERROR, error })
   }
 }
 

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-from classtagram.models import User, Course
+from classtagram.models import User, Course, Photo, Tag
 from classtagram.serializers import UserSerializer, RegisterSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
@@ -83,6 +83,13 @@ class UserCourseList(APIView):
     def get(self, request, pk, format=None):
         users = self.get_object(pk)
         serializer = UserSerializer(users, many=True)
+
+        for uobj in serializer.data :
+            count = Tag.objects.filter(course=pk, user=uobj['id']).count()
+            wholecount = Photo.objects.filter(course=pk).count()
+            uobj.update({'wholecount':wholecount})
+            uobj.update({'count':count})
+
         return Response(serializer.data)
 
 # 로그인 뷰

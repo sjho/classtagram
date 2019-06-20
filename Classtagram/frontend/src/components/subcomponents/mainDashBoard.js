@@ -122,6 +122,7 @@ export default function MainDashboard({
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onLinkCreate,
   makeRequest
   }) {
     
@@ -267,7 +268,13 @@ export default function MainDashboard({
             <Grid container spacing={2} item xs={4} >
               <Grid item xs={12} >
                 <Paper className={fixedHeightPaper_half}>
-                  {/*<Announce />*/} 123123
+                <div>
+                <h3>{teststor.user.is_student?"Student":"Professor"} Profile</h3>
+                  <h4>Name : {teststor.user.name}</h4>
+                  <h4>School : {teststor.user.school}</h4>
+                  <h4>Major : {teststor.user.major}</h4>
+                  <h4>Student Number : {teststor.user.student_number}</h4>
+                </div>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -277,6 +284,7 @@ export default function MainDashboard({
                     <Main_courseEdit
                       teststor = {teststor}
                       onEdit = {(e) => makeRequest(e)}
+                      onLinkCreate = {(e) => onLinkCreate(e)}
                     />
                   </div>
                 </Paper>

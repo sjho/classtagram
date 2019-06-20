@@ -63,12 +63,13 @@ export default function Course_TimeLine({
   onUpload_timeline,
 }) {
     const classes = useStyles();
+    console.log(teststor);
     return (
       <Grid container spacing={2}>
         {teststor.photoes.map( (photo) => (
           <div>
             {photo.coursename != "" ?
-              <Button variant="contained" color={photo.isChecked ? 'primary' : 'secondary'}
+              <Button variant="contained" color={(teststor.user.id == teststor.course.superuser) || (photo.is_checked) ? 'primary' : 'secondary'}
                        className={classes.button} size='middle' onClick={() => onLinkPhoto_timeline(photo.id)}>
                 {photo.created.substring(0, 10)}
                 <PhotoIcon className={classes.Icon} />

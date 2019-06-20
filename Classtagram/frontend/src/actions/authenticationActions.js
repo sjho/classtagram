@@ -44,6 +44,26 @@ export const coursePutAction = (course, info) => {
   }
 }
 
+export const coursePostAction = (coursename, superuser) => {
+  return {
+    type : types.COURSE_POST,
+    course : {
+      coursename,
+      superuser,
+      users : [
+        superuser,
+      ]
+    },
+  }
+}
+
+export const courseDeleteAction = (course) => {
+  return {
+    type : types.COURSE_DELETE,
+    course
+  }
+}
+
 export const photoCourseInfoAction = (course) => {
   return {
     type : types.PHOTO_COURSE_INFO,
@@ -61,6 +81,13 @@ export const photoUserInfoAction = (user) => {
 export const photoInfoAction = (photo) => {
   return {
     type : types.PHOTO_INFO,
+    photo
+  }
+}
+
+export const photoDeleteAction = (photo) => {
+  return {
+    type : types.PHOTO_DELETE,
     photo
   }
 }

@@ -38,11 +38,7 @@ class RequestCourseList(APIView):
     
     def get_object(self, pk):
         try:
-            objects = []
-            for obj in Request.objects.all() :
-                self.check_object_permissions(self.request, obj)
-                if obj.course.id == pk :
-                    objects.append(obj)
+            objects = Request.objects.filter(course=pk)
             return objects
         except Request.DoesNotExist:
             raise Http404

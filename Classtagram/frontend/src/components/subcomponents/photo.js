@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 // import Button from '@material-ui/core/Button';
 // import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 // import Icon from '@material-ui/core/Icon';
@@ -25,7 +26,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Photo({teststor}) {
+export default function Photo({
+  teststor,
+  onDelete
+}) {
   const classes = useStyles();
   const inputRef = useRef(null);
   // const classes = useStyles();
@@ -44,9 +48,13 @@ export default function Photo({teststor}) {
         <div>
             {<canvas id={'sample'} width={640} height={425}/>}
         </div>
+        {teststor.user.id == teststor.course.superuser?<div>
+        <Button variant="contained" color='secondary'
+                 className={classes.button} size='large' onClick = {() => onDelete(teststor.photo)}>
+          Delete
+        </Button> 
+        </div>:""}
       </Paper>
-      <Divider className = {classes.divider}  />
-        <h3> Alert </h3>
     </div>
     );
 }

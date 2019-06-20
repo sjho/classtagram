@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction, courseInfoAction, photoInfoAction, tagPostAction, tagPhotoInfoAction, tagPutAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, courseInfoAction, photoInfoAction, tagPostAction, tagPhotoInfoAction, tagPutAction, photoDeleteAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -68,15 +68,19 @@ class PhotoPage extends Component {
         canvas.height = this.height;
         ctx.drawImage(this, 0, 0);
         var tags = props.props.response.tagphoto.response;
-        var user = props.props.response.main.response
+        var user = props.props.response.main.response;
         if (tags != undefined) {
           var i=0;
           for (i=0; i<tags.length; i++){
             ctx.beginPath();
             ctx.arc(tags[i].x, tags[i].y, 3, 0, Math.PI * 2, true);
-            if (tags[i].user == user.id) ctx.fillStyle = 'green';
+            if (tags[i].user.id == user.id) ctx.fillStyle = 'green';
             else ctx.fillStyle = 'blue';
             ctx.fill();
+
+            ctx.beginPath();
+            ctx.font = "15px Arial";
+            ctx.fillText(tags[i].user.username, tags[i].x + 10, tags[i].y + 3);
           }
         }
       };
@@ -102,7 +106,7 @@ class PhotoPage extends Component {
           var tags = props.props.response.tagphoto.response;
           var k = undefined;
           for (var i=0; i<tags.length; i++){
-            if (tags[i].user == user.id){
+            if (tags[i].user.id == user.id){
               k = tags[i];
             } 
           }
@@ -111,8 +115,12 @@ class PhotoPage extends Component {
         }
       }
 
-      canvas.removeEventListener('click', canvasclick);
-      canvas.addEventListener('click', canvasclick, false);
+      user = props.props.response.main.response;
+      course = props.props.response.course.response;
+      if (user != undefined && course != undefined && course.superuser != user.id){
+        canvas.removeEventListener('click', canvasclick);
+        canvas.addEventListener('click', canvasclick, false);
+      }
     }
   }
 
@@ -131,6 +139,15 @@ class PhotoPage extends Component {
 
     if (this.props.response.photo.hasOwnProperty('response')) {
       photo = this.props.response.photo.response;
+    }
+
+    if (this.props.response.photodelete.hasOwnProperty('response')) {
+      this.props.dispatch(mainInfoAction(this.state.username));
+      this.props.dispatch(courseInfoAction(this.state.courseid));
+      this.setState({
+        linkto : '/course'
+      })
+      this.props.response.photodelete = {};
     }
 
     let linkto = "";
@@ -166,7 +183,10 @@ class PhotoPage extends Component {
       this.setState({
         linkto: '/create'
       })
-    }    
+    }
+    const Delete = (photo) => {
+      this.props.dispatch(photoDeleteAction(photo.id));
+    }
     switch(this.state.linkto) {
       case '/course':
         return (<Redirect to= '/course' />);
@@ -188,6 +208,7 @@ class PhotoPage extends Component {
               onLinkManage = {(e) => LinkManage(e)}
               onLinkPhoto = {(e) => LinkPhoto(e)}
               onLinkStat = {(e) => LinkStat(e)}
+              onDelete = {(e) => Delete(e)}
             />
           </div> 
         );

@@ -8,8 +8,11 @@ export default function* startForman() {
   yield fork(watch.watchUserCourseInfoAuthentication);
   yield fork(watch.watchCourseInfoAuthentication);
   yield fork(watch.watchCoursePutAuthentication);
+  yield fork(watch.watchCoursePostAuthentication);
+  yield fork(watch.watchCourseDeleteAuthentication);
   yield fork(watch.watchPhotoPostAuthentication);
   yield fork(watch.watchPhotoInfoAuthentication);
+  yield fork(watch.watchPhotoDeleteAuthentication);
   yield fork(watch.watchPhotoCourseInfoAuthentication);
   yield fork(watch.watchPhotoUserInfoAuthentication);
   yield fork(watch.watchTagPostAuthentication);

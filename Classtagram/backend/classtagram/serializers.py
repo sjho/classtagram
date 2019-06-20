@@ -56,6 +56,14 @@ class PhotoSerializer(serializers.ModelSerializer):
 		model = Photo
 		fields = ('id', 'course', 'photo', 'created')
 
+# 사진 시리얼라이저
+class PhotoCourseSerializer(serializers.ModelSerializer):
+	is_checked = serializers.BooleanField(initial=True)
+
+	class Meta:
+		model = Photo
+		fields = ('id', 'course', 'photo', 'created', 'is_checked')
+
 # 태그 시리얼라이저
 class TagSerializer(serializers.ModelSerializer):
 
@@ -71,3 +79,10 @@ class TagSerializer(serializers.ModelSerializer):
 				continue
 			raise serializers.ValidationError("Already checked")
 		return data
+
+class TagShowSerializer(serializers.ModelSerializer):
+	user = UserSerializer()
+
+	class Meta:
+		model = Tag
+		fields = ('id', 'user', 'course', 'photo', 'x', 'y')

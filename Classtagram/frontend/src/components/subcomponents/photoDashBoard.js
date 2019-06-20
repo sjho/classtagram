@@ -121,6 +121,7 @@ export default function PhotoDashboard({
   onLinkManage,
   onLinkPhoto,
   onLinkStat,
+  onDelete
   }) {
   const teststor = {
     user: {
@@ -353,11 +354,6 @@ export default function PhotoDashboard({
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
           {"Classtagram_"+teststor.course.coursename}
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -397,7 +393,7 @@ export default function PhotoDashboard({
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Photo teststor={teststor}/>
+          <Photo teststor={teststor} onDelete={(e) => onDelete(e)}/>
         </Container>
       </main>
     </div>

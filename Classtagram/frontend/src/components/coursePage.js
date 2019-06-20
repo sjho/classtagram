@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction, courseInfoAction, photoPostAction, photoCourseInfoAction} from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, courseInfoAction, photoPostAction, photoCourseInfoAction, courseDeleteAction} from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -61,20 +61,27 @@ class CoursePage extends Component {
 
     if (this.props.response.photopost.hasOwnProperty('response')) {
       this.props.dispatch(photoCourseInfoAction(this.state.courseid));
-      this.props.response.photopost = undefined;
+      this.props.response.photopost = {};
+    }
+
+    if (this.props.response.coursedelete.hasOwnProperty('response')) {
+      this.props.dispatch(mainInfoAction(this.state.username));
+      this.setState({
+        linkto : '/main'
+      })
+      this.props.response.coursedelete = {};
     }
 
     const LinkMain = () => {
       this.setState({
         linkto : '/main'
       })
-//      console.log("LinkMain Worked")
     };
     const LinkCourse = (courseid) => {
       localStorage.setItem('course', courseid);
       this.setState({'courseid' : courseid});
-      this.props.response.course = undefined;
-      this.props.response.photocourse = undefined;
+      this.props.response.course = {};
+      this.props.response.photocourse = {};
       this.props.dispatch(courseInfoAction(courseid));
       this.props.dispatch(photoCourseInfoAction(courseid));
       this.setState({
@@ -92,15 +99,8 @@ class CoursePage extends Component {
         linkto : '/photo'
       })
     };
-    const LinkStat = (coursename) => {
-      this.setState({
-        linkto : '/stat'
-      })
-    };
-    const LinkCreate = () => {
-      this.setState({
-        linkto: '/create'
-      })
+    const Delete = (courseid) => {
+      this.props.dispatch(courseDeleteAction(courseid));
     }  
     const PhotoUpload = (e) => {
       e.preventDefault();
@@ -111,9 +111,6 @@ class CoursePage extends Component {
       };
       reader.readAsDataURL(file);
     };
-    
-    let { imagePreviewUrl } = this.state;
-    let $imagePreview = null;
 
     switch(this.state.linkto) {
       case '/main':
@@ -135,7 +132,7 @@ class CoursePage extends Component {
               onLinkCourse = {(e) => LinkCourse(e)}
               onLinkManage = {(e) => LinkManage(e)}
               onLinkPhoto = {(e) => LinkPhoto(e)}
-              onLinkStat = {(e) => LinkStat(e)}
+              onDelete = {(e) => Delete(e)}
               onUpload = {(e) => PhotoUpload(e)}
             />
           </div> 

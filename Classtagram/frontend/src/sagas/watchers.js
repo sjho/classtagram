@@ -67,6 +67,24 @@ export function* watchCoursePutAuthentication() {
   }
 }
 
+export function* watchCoursePostAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { course } = yield take(types.COURSE_POST);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.coursePostSaga, course);
+  }
+}
+
+export function* watchCourseDeleteAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { course } = yield take(types.COURSE_DELETE);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.courseDeleteSaga, course);
+  }
+}
+
 export function* watchPhotoPostAuthentication() {
   while(true){
     // 유저 정보를 받아옵니다.
@@ -82,6 +100,15 @@ export function* watchPhotoInfoAuthentication() {
     const { photo } = yield take(types.PHOTO_INFO);
     // loginSaga를 call하고 user정보를 보냅니다.
     yield call(saga.photoInfoSaga, photo);
+  }
+}
+
+export function* watchPhotoDeleteAuthentication() {
+  while(true){
+    // 유저 정보를 받아옵니다.
+    const { photo } = yield take(types.PHOTO_DELETE);
+    // loginSaga를 call하고 user정보를 보냅니다.
+    yield call(saga.photoDeleteSaga, photo);
   }
 }
 

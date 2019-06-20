@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logoutUserAction, mainInfoAction, photoUserInfoAction, requestPostAction } from '../actions/authenticationActions';
+import { logoutUserAction, mainInfoAction, photoUserInfoAction, requestPostAction, coursePostAction } from '../actions/authenticationActions';
 import { setCookie } from '../utils/cookies';
 import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -46,6 +46,11 @@ class MainPage extends Component {
 
     if (this.props.response.photouser.hasOwnProperty('response')) {
       photodata = this.props.response.photouser.response;
+    }
+
+    if (this.props.response.coursepost.hasOwnProperty('response')) {
+      this.props.dispatch(mainInfoAction());
+      this.props.response.coursepost = {};
     }
 
     const user = JSON.parse(localStorage.getItem('user'))
@@ -96,9 +101,10 @@ class MainPage extends Component {
         linkto : '/stat'
       })
     };
-    const LinkCreate = () => {
+    const LinkCreate = (coursename) => {
+      this.props.dispatch(coursePostAction(coursename, user.user));
       this.setState({
-        linkto: '/create'
+        linkto : '/main'
       })
     }
     switch(this.state.linkto) {
@@ -123,7 +129,7 @@ class MainPage extends Component {
               onLinkManage = {(e) => LinkManage(e)}
               onLinkPhoto = {(e) => LinkPhoto(e)}
               onLinkStat = {(e) => LinkStat(e)}
-              onLinkCreate = {() => LinkCreate()}
+              onLinkCreate = {(e) => LinkCreate(e)}
               makeRequest = {(e) => MakeRequest(e)}
             />
           </div> 
